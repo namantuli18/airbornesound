@@ -45,7 +45,7 @@ def output(file_name):
 	X_test = X.reshape(len(X), 16, 8, 1)
 	return (X_test)
 
-model,pump,fan,valve,sldier=model_loader_instrument()
+model,pump,fan,valve,slider=model_loader_instrument()
 
 
 print(dictionary[np.argmax(model.predict(output("00000000.wav")))],"with probability",np.max(model.predict(output("00000000.wav"))))
