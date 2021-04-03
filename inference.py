@@ -46,4 +46,10 @@ def output(file_name):
 	return (X_test)
 
 model,pump,fan,valve,slider=model_loader_instrument()
+<<<<<<< HEAD
 print(dictionary[np.argmax(model.predict(output("00000000.wav")))],"with probability",np.max(model.predict(output("00000000.wav"))))
+=======
+
+
+print(dictionary[np.argmax(model.predict(output("00000000.wav")))],"with probability",np.max(model.predict(output("00000000.wav"))))
+>>>>>>> 18837aeb5f7814c5cb7ff3a69e5b53b6e16941fa
