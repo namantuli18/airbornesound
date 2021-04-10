@@ -2,43 +2,32 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const app = express();
 const path = require("path");
-
+const nunjucks=require('nunjucks')
 const { PythonShell } = require('python-shell');
-
+app.set('view engine','nunjucks')
+app.use(express.static(__dirname+'/assets'))
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});
 app.get("/", (req, res, next) => {
     //Here are the option object in which arguments can be passed for the python_test.js.
-    let options = {
-        mode: 'text',
-        pythonOptions: ['-u'], // get print results in real-time
-        // scriptPath: 'path/to/my/scripts', //If you are having python_test.py script in same folder, then it's optional.
-        args: ['test'] //An argument which can be accessed in the script using sys.argv[1]
-    };
-
-
-    PythonShell.run('python_test.py', options, function (err, result) {
-        if (err) throw err;
-        // result is an array consisting of messages collected 
-        //during execution of script.
-        console.log('result: ', result.toString());
-        res.send(result.toString())
-    });
+    res.render('index2.html');
 });
 
 
 const PORT = 8000;
 
-app.use('/form', express.static(__dirname + '/index.html'));
+// app.use('/form', express.static(__dirname + '/index.html'));
 app.use(express.urlencoded({ extended: true }));
 
 // ejs files 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, "/views"));
 
 // default options
 app.use(fileUpload());
 
 app.get('/upload', (req, res) => {
-    res.render('index.ejs');
+    res.render('index.html');
 })
 
 app.post('/upload', function (req, res) {
@@ -46,11 +35,11 @@ app.post('/upload', function (req, res) {
     let uploadPath;
 
     if (!req.files || Object.keys(req.files).length === 0) {
-        res.status(400).render('noFile.ejs');
+        res.status(400).render('noFile.html');
         return;
     }
 
-    console.log('req.files >>>', req.files); // eslint-disable-line
+    // console.log('req.files >>>', req.files); // eslint-disable-line
 
     sampleFile = req.files.sampleFile;
 
@@ -62,7 +51,24 @@ app.post('/upload', function (req, res) {
             console.log(err);
         }
         // res.send('File uploaded to ' + uploadPath);
-        res.render('reupload.ejs', { uploadPath });
+            //Here are the option object in which arguments can be passed for the python_test.js.
+        let options = {
+            mode: 'text',
+            pythonOptions: ['-u'], // get print results in real-time
+            // scriptPath: 'path/to/my/scripts', //If you are having python_test.py script in same folder, then it's optional.
+            args: [sampleFile.name] //An argument which can be accessed in the script using sys.argv[1]
+        };
+
+
+        PythonShell.run('inference.py', options, function (err, result) {
+            if (err) throw err;
+            // result is an array consisting of messages collected 
+            //during execution of script.
+            console.log('result: ', result.toString());
+            res.render('reupload.html', { uploadPath,result });
+        });
+        
+        
 
     });
 });

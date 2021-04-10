@@ -1,3 +1,6 @@
+# filename = "venv/Scripts/activate_this.py"
+# exec(compile(open(filename).read(),filename,'exec'), globals(), globals())
+import os
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -8,13 +11,14 @@ from tensorflow.keras.utils import to_categorical
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 
-import os
+
 import librosa
 import librosa.display
 import glob 
 import skimage
 from tensorflow import keras
-
+import sys
+#print(sys.argv[1])
 input_dim = (16, 8,1)
 dictionary=["pump","fan","valve","slider"]
 
@@ -44,12 +48,11 @@ def output(file_name):
 		X[i] = (X_[i])
 	X_test = X.reshape(len(X), 16, 8, 1)
 	return (X_test)
-
-model,pump,fan,valve,slider=model_loader_instrument()
-<<<<<<< HEAD
-print(dictionary[np.argmax(model.predict(output("00000000.wav")))],"with probability",np.max(model.predict(output("00000000.wav"))))
-=======
+models={}
+models['classifier'],models['pump'],models['fan'],models['valve'],models['slider']=model_loader_instrument()
 
 
-print(dictionary[np.argmax(model.predict(output("00000000.wav")))],"with probability",np.max(model.predict(output("00000000.wav"))))
->>>>>>> 18837aeb5f7814c5cb7ff3a69e5b53b6e16941fa
+path='uploads/'+sys.argv[1]
+type_=dictionary[np.argmax(models['classifier'].predict(output(path)))]
+print(type_,"with probability",np.max(models['classifier'].predict(output(path))))
+print(np.argmax(models[type_].predict(output(path))),"with probability",np.max(models[type_].predict(output(path))))
