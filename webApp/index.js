@@ -4,6 +4,15 @@ const app = express();
 const path = require("path");
 const nunjucks=require('nunjucks')
 const { PythonShell } = require('python-shell');
+const Pusher = require("pusher");
+
+const pusher = new Pusher({
+  appId: "1182983",        // Replace with 'app_id' from dashboard
+  key: "95943c2c1888f27777ef",         // Replace with 'key' from dashboard
+  secret: "77766f97c7d3b5345264",   // Replace with 'secret' from dashboard
+  cluster: "ap2", // Replace with 'cluster' from dashboard
+  useTLS: true
+});
 app.set('view engine','nunjucks')
 app.use(express.static(__dirname+'/assets'))
 nunjucks.configure('views', {
@@ -12,7 +21,7 @@ nunjucks.configure('views', {
 });
 app.get("/", (req, res, next) => {
     //Here are the option object in which arguments can be passed for the python_test.js.
-    res.render('index2.html');
+    res.render('index.html');
 });
 
 
@@ -25,10 +34,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // default options
 app.use(fileUpload());
-
-app.get('/upload', (req, res) => {
-    res.render('index.html');
-})
 
 app.post('/upload', function (req, res) {
     let sampleFile;  // input file name
@@ -72,7 +77,11 @@ app.post('/upload', function (req, res) {
 
     });
 });
-
+setInterval(() => {
+  pusher.trigger("price-btcusd", "new-price", { 
+    value: [1000+(Math.random() * 5000),1000+(Math.random() * 5000),1000+(Math.random() * 5000)]
+  });
+}, 5000);
 app.listen(PORT, function () {
     console.log('Express server listening on port ', PORT);
 });
