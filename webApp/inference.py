@@ -53,6 +53,11 @@ models['classifier'],models['pump'],models['fan'],models['valve'],models['slider
 
 
 path='uploads/'+sys.argv[1]
-type_=dictionary[np.argmax(models['classifier'].predict(output(path)))]
-print(type_,"with probability",np.max(models['classifier'].predict(output(path))))
-print(np.argmax(models[type_].predict(output(path))),"with probability",np.max(models[type_].predict(output(path))))
+res=[]
+res.append(dictionary[np.argmax(models['classifier'].predict(output(path)))])
+res.append(np.max(models['classifier'].predict(output(path))))
+res.append(np.argmax(models[res[0]].predict(output(path))))
+res.append(np.max(models[res[0]].predict(output(path))))
+print(res)
+
+

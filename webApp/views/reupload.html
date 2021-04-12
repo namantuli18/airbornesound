@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>File uploaded- 
-    	{{uploadPath}}
-    </h1>
-    <p>{{result}}</p>
-    <a href="/upload">Upload again!!!!!</a>
-</body>
-
-</html>
+Device <b>{{array[0]}}</b> detected with probability <b>{{array[1]}}</b>. <br>
+{% if array[2]==0 %}
+  STATUS: Normal 
+{% else %}
+  STATUS: <b>Abnormal</b>
+{% endif %}
+with probability <b>{{array[3]}}</b>.

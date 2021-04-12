@@ -70,7 +70,10 @@ app.post('/upload', function (req, res) {
             // result is an array consisting of messages collected 
             //during execution of script.
             console.log('result: ', result.toString());
-            res.render('reupload.html', { uploadPath,result });
+            let array=result.toString().split(',');
+            array[0]=array[0].slice(2,-1)
+            array[3]=array[3].slice(0,-1)
+            res.render('reupload.html', { array });
         });
         
         
