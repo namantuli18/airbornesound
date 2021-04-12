@@ -4,20 +4,11 @@ import os
 import pandas as pd
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, Flatten, Dense, MaxPool2D, Dropout
-from tensorflow.keras.utils import to_categorical 
-
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
-
-
 import librosa
-import librosa.display
-import glob 
-import skimage
 from tensorflow import keras
 import sys
+import time
+start_time = time.time()
 #print(sys.argv[1])
 input_dim = (16, 8,1)
 dictionary=["pump","fan","valve","slider"]
