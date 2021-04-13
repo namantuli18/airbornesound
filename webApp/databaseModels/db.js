@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt');
 const sequelize = new Sequelize('mysql://freedbtech_Hackpui:123456787@freedb.tech:3306/freedbtech_Dbhack');
 
 // setup User model and its fields.
-var Users = sequelize.define('users', {
+const Users = sequelize.define('users', {
     id: {
         type: Sequelize.STRING,
         unique: true,
@@ -48,6 +48,9 @@ var Users = sequelize.define('users', {
     }
 });
 
+
+
+
 const history = sequelize.define('history', {
     // Model attributes are defined here
     id: {
@@ -56,11 +59,6 @@ const history = sequelize.define('history', {
         allowNull: false,
         primaryKey: true
     },
-    // loginId: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false,
-    // },
-
     name: {
         type: Sequelize.STRING,
         allowNull: false
@@ -88,7 +86,6 @@ Users.hasOne(history, {
 });
 history.belongsTo(Users);
 
-// create all the defined tables in the specified database.
 sequelize.sync()
     .then(() => console.log('users table has been successfully created, if one doesn\'t exist'))
     .catch(error => console.log('This error occured', error));
@@ -96,3 +93,4 @@ sequelize.sync()
 // export User model for use in other files.
 module.exports = Users;
 module.exports = history;
+
