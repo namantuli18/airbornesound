@@ -128,7 +128,7 @@ app.post('/upload', function (req, res) {
 });
 setInterval(() => {
     pusher.trigger("price-btcusd", "new-price", {
-        value: [1000 + (Math.random() * 5000), 1000 + (Math.random() * 5000), 1000 + (Math.random() * 5000)]
+        value: [(Math.random()),  (Math.random()), (Math.random()   )]
     });
 }, 5000);
 app.listen(PORT, function () {
