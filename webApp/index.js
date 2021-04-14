@@ -75,6 +75,8 @@ app.route('/login')
                 req.session.user = user.dataValues;
                 res.redirect('/dashboard');
             }
+        }).catch(err => {
+            console.log(err);
         });
     });
 
