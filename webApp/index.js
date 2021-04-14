@@ -42,36 +42,68 @@ const pusher = new Pusher({
 });
 
 var sessionChecker = (req, res, next) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.redirect('/dashboard');
+    if (!req.session.user) {
+        res.redirect('/login');
+    } else {
+        next();
+    }
+};
+var sessionChecker2 = (req, res, next) => {
+    if (req.session.user) {
+        res.redirect('/');
     } else {
         next();
     }
 };
 
-
-
-app.get("/", (req, res, next) => {
-    //Here are the option object in which arguments can be passed for the python_test.js.
-    res.render('index.html');
+app.use(function (req, res, next) {
+    res.locals.session = req.session;
+    next();
 });
+
+app.route("/")
+    .get(sessionChecker, (req, res, next) => {
+        //Here are the option object in which arguments can be passed for the python_test.js.
+        res.render('index.html', { page: "dashboard" })
+    });
+
+app.route('/user')
+    .get(sessionChecker, (req, res) => {
+        res.render('user.html', { page: "user" });
+    });
+
+app.route('/history')
+    .get(sessionChecker, (req, res) => {
+        res.render('history.html', { page: "user" });
+    });
+
+app.route('/report')
+    .get(sessionChecker, (reqe, res) => {
+        res.render('report.html', { page: "report" });
+    });
+
+app.route("/logout")
+    .get((req, res) => {
+        req.session.destroy();
+        res.redirect("/login");
+    });
 
 // app.use('/form', express.static(__dirname + '/index.html'));
 
 app.route('/login')
-    .get(sessionChecker, (req, res) => {
-        res.sendFile(__dirname + '/views/login.html');
+    .get(sessionChecker2, (req, res) => {
+        res.render('login.html');
     })
     .post((req, res) => {
         var username = req.body.username,
             password = req.body.password;
 
-        Users.findOne({ where: { userName: username , password: password} }).then(function (user) {
+        Users.findOne({ where: { userName: username, password: password } }).then(function (user) {
             if (!user) {
                 res.redirect('/login');
-            
-            // } else if (!user.validPassword(password)) {
-            //     res.redirect('/login');
+
+                // } else if (!user.validPassword(password)) {
+                //     res.redirect('/login');
             } else {
                 req.session.user = user.dataValues;
                 console.log(user.dataValues);
