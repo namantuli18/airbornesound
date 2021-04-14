@@ -4,34 +4,43 @@
           <div class="col-lg-12">
             <div class="card card-chart">
               <div class="card-header ">
+                
+                
                 <div class="row">
-                  <div class="col-sm-6 text-left">
+                  
+                  <div class="col-sm-7 text-left">
                     <h5 class="card-category">Live Updates</h5>
                     <h2 class="card-title">Predictions</h2>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                      <label class="btn btn-sm btn-primary btn-simple active" id="0">
-                        <input type="radio" name="options" checked>
+                  <div class="col-sm-2"><select class="selectpicker" data-style="btn select-with-transition float-right"  title="Device Type" data-size="7">
+                    <option>Mustard</option>
+                    <option>Ketchup</option>
+                    <option>Barbecue</option>
+                  </select></div>
+                  <div class="col-sm-3">
+                    <div class="btn-group btn-group-toggle float-right fac-toggle" data-toggle="buttons">
+                      <label class="btn btn-primary btn-simple active " id="0">
+                        <input type="checkbox" class="fac-toggle-a"name="options" checked>
                         <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Accounts</span>
                         <span class="d-block d-sm-none">
                           <i class="tim-icons icon-single-02"></i>
                         </span>
                       </label>
-                      <label class="btn btn-sm btn-primary btn-simple" id="1">
-                        <input type="radio" class="d-none d-sm-none" name="options">
+                      <label class="btn btn-primary btn-simple active fac-toggle" id="1">
+                        <input type="checkbox" class="d-none d-sm-none fac-toggle-b" name="options" checked>
                         <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Purchases</span>
                         <span class="d-block d-sm-none">
                           <i class="tim-icons icon-gift-2"></i>
                         </span>
                       </label>
-                      <label class="btn btn-sm btn-primary btn-simple" id="2">
-                        <input type="radio" class="d-none" name="options">
+                      <label class="btn btn-primary btn-simple active fac-toggle" id="2">
+                        <input type="checkbox" class="d-none fac-toggle-c" name="options" checked>
                         <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Sessions</span>
                         <span class="d-block d-sm-none">
                           <i class="tim-icons icon-tap-02"></i>
                         </span>
                       </label>
+                      
                     </div>
                   </div>
                 </div>
@@ -394,30 +403,67 @@
         </div>{% endblock %}
         {%block scripts%}
     <script>
+      Pusher.logToConsole = true;
+        const pusher = new Pusher('95943c2c1888f27777ef', { // Replace with 'key' from dashboard
+          cluster: 'ap2',              // Replace with 'cluster' from dashboard
+          forceTLS: true
+        });
       google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(() => {
+      google.charts.setOnLoadCallback(plotchart);
+      $(document).on('click','.fac-toggle',function(){
+        pusher.unsubscribe('price-btcusd');
+        google.charts.setOnLoadCallback(plotchart);
+      });
+      
+      function plotchart(){
         // Instead of hard-coding the initial table data,
         // you could fetch it from your server.
-        const dataTable = google.visualization.arrayToDataTable([
-          ['Year', 'Fac A','Fac B', 'Fac C'],
-          [2013, 1400, 3424, 1845],
-          [2014, 1460, 1400, 3424],
-          [2015, 1532, 1460, 1400],
-          [2016, 2326, 1532, 1460],
-          [2017, 5234, 2326, 1532],
-          [2018, 3234, 5234, 2326],
-          [2019, 4234, 3234, 5234],
-          [2020, 1245, 4234, 3234],
-          [2021, 1845, 1245, 4234],
-          [2022, 3424, 1845, 1245],
+        let a=$('.fac-toggle-a').is(":checked"),b=$('.fac-toggle-b').is(":checked"),c=$('.fac-toggle-c').is(":checked");;
+        let temp=[[ 1400, 3424, 1845],
+          [ 1460, 1400, 3424],
+          [ 1532, 1460, 1400],
+          [ 2326, 1532, 1460],
+          [ 5234, 2326, 1532],
+          [ 3234, 5234, 2326],
+          [ 4234, 3234, 5234],
+          [ 1245, 4234, 3234],
+          [ 1845, 1245, 4234],
+          [ 3424, 1845, 1245]];
+          var currentdate = new Date(); 
+          var time = currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds(); 
+        let dt=[];
+        dt[0]=[];
+        dt[0].push('Time');
+        if(a)
+        dt[0].push('Fac A');
+        if(b)
+        dt[0].push('Fac B');
+        if(c)
+        dt[0].push('Fac C');
+        for(var i=1;i<11;i++){
+            dt[i]=[];
+            currentdate.setSeconds( currentdate.getSeconds() + 5 );
+            var time = ('0'+currentdate.getHours()).slice(-2)  + ":"  
+                +  ('0'+currentdate.getMinutes()).slice(-2) + ":" 
+                + ('0'+currentdate.getSeconds()).slice(-2) ;
+            dt[i].push(time);
+            if(a)
+            dt[i].push((Math.random()));
+            if(b)
+            dt[i].push((Math.random()));
+            if(c)
+            dt[i].push((Math.random() ));
 
-        ]);
+        }
+        const dataTable = new google.visualization.arrayToDataTable(dt);
         const chart = new google.visualization.LineChart(
           document.getElementById('chart_div'));
         const options = {
           title: '',
           curveType: 'function',
-          hAxis: {title: 'Year',  titleTextStyle: {color: '#fff',fontName:"'Poppins', sans-serif" ,fontSize:'15px', italic:false ,bold:true }, gridlines: { color: '#27293d',count: 5, width:1 }, minorGridlines:{ count: 0}, textStyle: {color: '#9A9A9A', fontName:"'Poppins', sans-serif" ,fontSize:'15px'}, baselineColor:'#27293d'},
+          hAxis: {title: 'Time',  titleTextStyle: {color: '#fff',fontName:"'Poppins', sans-serif" ,fontSize:'15px', italic:false ,bold:true }, gridlines: { color: '#27293d',count: 5, width:1 }, minorGridlines:{ count: 0}, textStyle: {color: '#9A9A9A', fontName:"'Poppins', sans-serif" ,fontSize:'15px'}, baselineColor:'#27293d'},
           vAxis: {minValue: 0 ,titleTextStyle: {color: '#fff'}, gridlines: { color: '#27293d', count: 2, width:1 }, minorGridlines:{ count: 0 }, textStyle: {color: '#9A9A9A', fontName:"'Poppins', sans-serif" ,  fontSize:'15px'} ,baselineColor:'#27293d'},
           animation:{ duration: 1000, easing: 'out', startup:true },
           backgroundColor: { fill:'transparent' },
@@ -430,15 +476,22 @@
 
         };
         chart.draw(dataTable, options);
-        let year = 2023;
-        Pusher.logToConsole = true;
-        const pusher = new Pusher('95943c2c1888f27777ef', { // Replace with 'key' from dashboard
-          cluster: 'ap2',              // Replace with 'cluster' from dashboard
-          forceTLS: true
-        });
+        
+        
         const channel = pusher.subscribe('price-btcusd');
         channel.bind('new-price', data => {
-          const row = [year++, data.value[0],data.value[1],data.value[2]];
+          currentdate.setSeconds( currentdate.getSeconds() + 5 );
+            var time = ('0'+currentdate.getHours()).slice(-2)  + ":"  
+                +  ('0'+currentdate.getMinutes()).slice(-2) + ":" 
+                + ('0'+currentdate.getSeconds()).slice(-2) ;
+          let row=[];
+            row.push(time);
+            if(a)
+            row.push(data.value[0]);
+            if(b)
+            row.push(data.value[1]);
+            if(c)
+            row.push(data.value[2]);
           dataTable.addRow(row);
           chart.draw(dataTable, options);
            setTimeout(function() {
@@ -448,7 +501,7 @@
           chart.draw(dataTable, options);
         }, 2500);
         });
-       });
+       };
        </script>
        <script >
 
@@ -491,8 +544,7 @@
   
               }
       });
-  
-  }
+  };
 
     </script>
         {% endblock %}
