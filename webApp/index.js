@@ -9,9 +9,9 @@ const Pusher = require("pusher");
 const sequelize = require('sequelize');
 const cookieParser = require('cookie-parser');
 const { v4: uuid } = require('uuid');
-const Users = require('./databaseModels/db');
+const {Users,History} = require('./databaseModels/db');
 const PORT = 8000;
-
+const uniqueFilename = require('unique-filename')
 
 app.use(express.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
@@ -93,8 +93,10 @@ app.post('/upload', function (req, res) {
     // console.log('req.files >>>', req.files); // eslint-disable-line
 
     sampleFile = req.files.sampleFile;
-
-    uploadPath = __dirname + '/uploads/' + sampleFile.name;
+    let fileName = uniqueFilename(req.session.user['userName'])
+    let ext=sampleFile.name.split('.');
+    fileName+=ext[-1]
+    uploadPath +=  __dirname + '/uploads/'+fileName;
 
     sampleFile.mv(uploadPath, function (err) {
         if (err) {
@@ -103,25 +105,41 @@ app.post('/upload', function (req, res) {
         }
         // res.send('File uploaded to ' + uploadPath);
         //Here are the option object in which arguments can be passed for the python_test.js.
+        
         let options = {
             mode: 'text',
             pythonOptions: ['-u'], // get print results in real-time
             // scriptPath: 'path/to/my/scripts', //If you are having python_test.py script in same folder, then it's optional.
-            args: [sampleFile.name] //An argument which can be accessed in the script using sys.argv[1]
+            args: [fileName] //An argument which can be accessed in the script using sys.argv[1]
         };
 
-
+        let array=[]
         PythonShell.run('inference.py', options, function (err, result) {
             if (err) throw err;
             // result is an array consisting of messages collected 
             //during execution of script.
             console.log('result: ', result.toString());
-            let array = result.toString().split(',');
+            array = result.toString().split(',');
             array[0] = array[0].slice(2, -1)
             array[3] = array[3].slice(0, -1)
-            res.render('reupload.html', { array });
+            
         });
+        let query=History.create({
+            id: uuid(),
+            deviceType: array[0],
+            dtProb: array[1],
+            anaStatus: array[2],
+            anaProb:array[3],
+            loginId:req.session.user['id']
 
+        })
+        .complete(function(err, socialUrl) {
+            if (err) {
+              console.log("Error:"+err);
+            } else {
+                res.render('reupload.html', { array });
+            }
+          })
 
 
     });
