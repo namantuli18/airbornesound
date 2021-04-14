@@ -9,7 +9,7 @@ const Pusher = require("pusher");
 const sequelize = require('sequelize');
 const cookieParser = require('cookie-parser');
 const { v4: uuid } = require('uuid');
-const { Users } = require('./databaseModels/db');
+const Users = require('./databaseModels/db');
 const PORT = 8000;
 
 
@@ -66,14 +66,16 @@ app.route('/login')
         var username = req.body.username,
             password = req.body.password;
 
-        Users.findOne({ where: { userName: username } }).then(function (user) {
+        Users.findOne({ where: { userName: username , password: password} }).then(function (user) {
             if (!user) {
                 res.redirect('/login');
-            } else if (!user.validPassword(password)) {
-                res.redirect('/login');
+            
+            // } else if (!user.validPassword(password)) {
+            //     res.redirect('/login');
             } else {
                 req.session.user = user.dataValues;
-                res.redirect('/dashboard');
+                console.log(user.dataValues);
+                res.redirect('/');
             }
         });
     });

@@ -92,5 +92,5 @@ sequelize.sync()
 
 // export User model for use in other files.
 module.exports = Users;
-module.exports = history;
+// module.exports = history;
 
