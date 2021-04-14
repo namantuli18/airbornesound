@@ -6,16 +6,15 @@ const path = require("path");
 const nunjucks = require('nunjucks')
 const { PythonShell } = require('python-shell');
 const Pusher = require("pusher");
-const { Sequelize } = require('sequelize');
-const { DataTypes } = require("sequelize");
+const sequelize = require('sequelize');
 const cookieParser = require('cookie-parser');
 const { v4: uuid } = require('uuid');
-const Users = require("./db");
+const { Users } = require('./databaseModels/db');
 const PORT = 8000;
 
 
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(fileUpload());
 app.use(express.static(__dirname + '/assets'))
 app.use(session({
@@ -33,6 +32,7 @@ nunjucks.configure('views', {
     express: app
 });
 
+
 const pusher = new Pusher({
     appId: "1182983",        // Replace with 'app_id' from dashboard
     key: "95943c2c1888f27777ef",         // Replace with 'key' from dashboard
@@ -40,6 +40,15 @@ const pusher = new Pusher({
     cluster: "ap2", // Replace with 'cluster' from dashboard
     useTLS: true
 });
+
+var sessionChecker = (req, res, next) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.redirect('/dashboard');
+    } else {
+        next();
+    }
+};
+
 
 
 app.get("/", (req, res, next) => {
@@ -51,13 +60,13 @@ app.get("/", (req, res, next) => {
 
 app.route('/login')
     .get(sessionChecker, (req, res) => {
-        res.sendFile(__dirname + '/public/login.html');
+        res.sendFile(__dirname + '/views/login.html');
     })
     .post((req, res) => {
         var username = req.body.username,
             password = req.body.password;
 
-        User.findOne({ where: { username: username } }).then(function (user) {
+        Users.findOne({ where: { userName: username } }).then(function (user) {
             if (!user) {
                 res.redirect('/login');
             } else if (!user.validPassword(password)) {
