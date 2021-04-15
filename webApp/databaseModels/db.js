@@ -80,6 +80,35 @@ const history = sequelize.define('history', {
         allowNull: false
     }
 });
+const report = sequelize.define('report', {
+    // Model attributes are defined here
+    id: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
+        primaryKey: true
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    deviceType: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    dtProb: {
+        type: Sequelize.DOUBLE,
+        allowNull: false
+    },
+    anaStatus: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    anaProb: {
+        type: Sequelize.DOUBLE,
+        allowNull: false
+    }
+});
 
 Users.hasMany(history, {
     foreignKey: 'loginId'
