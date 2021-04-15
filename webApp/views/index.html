@@ -469,6 +469,7 @@
       document.getElementById('chart_div'));
     const options = {
       title: '',
+      tooltip:{isHtml: true,textStyle: {color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px',}, showColorCode: true},
       curveType: 'function',
       hAxis: { title: 'Time', titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
       vAxis: { minValue: 0, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
@@ -556,26 +557,32 @@
 <script>
 
   var dt = [];
-  dt[0] = ['A', 'B'];
+  dt[0] = ['Probability', 'Normal','Abnormal'];
   var i = 1;
-  {% for i in records %}
-  dt[i] = [parseFloat({{ i[0]}}), parseFloat({{ i[1]}})];
+  {% for i in range(4094) %}
+  
+  dt[i] = [parseFloat({{ data['vgg'][i][0]}}),{%if data['vgg_y'][i] | int == 1 %} parseFloat({{ data['vgg'][i][1]}}),null {%else%} null,parseFloat({{ data['vgg'][i][1]}}) {%endif%}];
   i++;
   {% endfor %}
   console.log(dt)
+  
   google.charts.setOnLoadCallback(drawChart);
-
+  
+  
   function drawChart() {
+  
     var data = google.visualization.arrayToDataTable(dt);
-
+    console.log(data);
     var options = {
-      title: '',
+      title: 't-SNE Dimensionality Reduction of VGGish Embeddings',
+      titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
+      tooltip:{isHtml: true,textStyle: {color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px',}, showColorCode: true},
       // curveType: 'function',
       hAxis: { title: 'Time', minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
       vAxis: { minValue: 0, minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
       animation: { duration: 5000, easing: 'out', startup: true },
       backgroundColor: { fill: 'transparent' },
-      colors: ['#1f8ef1'],
+      colors: ['#1f8ef1', '#00d6b4'],
       legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', position: 'bottom' } },
       crosshair: { trigger: 'both', opacity: 0.5 },
       pointSize: 1,

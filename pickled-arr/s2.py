@@ -8,5 +8,11 @@ import numpy
 from collections import Counter
 data={}
 with open(os.path.join("slider",'Y.pb'),"rb") as f:
-	arr=pickle.load(f)
-print(Counter(arr))
+    try:
+        arr=pickle.load(f)
+        print(arr[3])
+        data['values']= arr
+        print(data['values'])
+    except:pass
+numpy.savetxt("U_vggish_Y.csv", arr, delimiter=",")
+
