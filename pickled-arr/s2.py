@@ -5,14 +5,8 @@ import os
 import pandas as pd
 import json
 import numpy
+from collections import Counter
 data={}
-with open(os.path.join("slider",'U_mfcc.pb'),"rb") as f:
-    try:
-        arr=pickle.load(f)
-        print(arr[3])
-        data['values']= arr
-        print(data['values'])
-    except:pass
-numpy.savetxt("foo.csv", arr, delimiter=",")
-df=pd.DataFrame.from_dict(data)
-pd.DataFrame(arr).to_csv("slider.csv")
+with open(os.path.join("slider",'Y.pb'),"rb") as f:
+	arr=pickle.load(f)
+print(Counter(arr))
