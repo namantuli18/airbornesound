@@ -1,7 +1,20 @@
-Device <b>{{array[0]}}</b> detected with probability <b>{{array[1]}}</b>. <br>
-{% if array[2]==0 %}
-  STATUS: Normal 
-{% else %}
-  STATUS: <b>Abnormal</b>
-{% endif %}
-with probability <b>{{array[3]}}</b>.
+<div class="text-center" style="text-align: center; padding: 20px;">
+  <span style="font-size:20px; color:white;"> <b>DEVICE:</b> <b>{{array[0]}}</b> <br></span>
+  <span style="color: white;font-size:20px;">with probability <b>{{array[1]}}</b>.</span>
+  <br>
+  <span style="font-size :20px; color:white;">{% if array[2]==0 %}
+    <b>STATUS:</b> <b style="color: rgb(4, 136, 4);">Normal</b>{% else %}
+    <b>STATUS:</b> <b style=color:red;>Abnormal</b>
+  </span>
+  {% endif %}
+  <br>
+  <span style="color: white;font-size:20px;"> with probability <b>{{array[3]}}</b>.</span>
+
+  <div style="text-align:right;position: absolute;bottom: 0; width: 96%; ">
+    <button id="reupload_audio_btn" type="submit " class="btn  btn-primary btn-round btn-sm mr-auto" style="
+    zoom: 0.8;
+    right: 20px;
+    bottom: 10px;">Upload another
+      sample</button>
+  </div>
+</div>

@@ -13,6 +13,7 @@
     "nunjucks": "^3.2.3",
     "pusher": "^5.0.0",
     "python-shell": "^3.0.0",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "unique-filename": "^1.1.1"
   }
 }
