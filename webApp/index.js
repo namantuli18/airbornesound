@@ -12,6 +12,8 @@ const { v4: uuid } = require('uuid');
 const {Users,History} = require('./databaseModels/db');
 const PORT = 8000;
 const uniqueFilename = require('unique-filename')
+var fs = require('fs').promises;
+var parse = require('csv-parse/lib/sync');
 
 app.use(express.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
@@ -50,10 +52,16 @@ var sessionChecker = (req, res, next) => {
 };
 
 
-
+let records=[];
 app.get("/", (req, res, next) => {
+    
     //Here are the option object in which arguments can be passed for the python_test.js.
-    res.render('index.html');
+    (async function () {
+        const fileContent = await fs.readFile(__dirname+'/csv/foo.csv');
+        records = parse(fileContent, {columns: false});
+        // console.log(records)
+    })();
+    res.render('index.html',{records});
 });
 
 // app.use('/form', express.static(__dirname + '/index.html'));
