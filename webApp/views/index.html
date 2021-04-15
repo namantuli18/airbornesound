@@ -86,7 +86,17 @@
           <div style="text-align:right;position: absolute;bottom: 0; width: 96%;">
             <button id="upload_audio_btn" type="submit "
               class="btn  btn-primary btn-round btn-sm mr-auto">Submit</button>
-          </div>
+            <div class="col-lg-6">
+              <div class="card card-chart">
+                <div class="card-header">
+                  <h5 class="card-category">Plots</h5>
+                  <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
+                </div>
+                <div class="card-body">
+                  <div id="chart_div_2" style="height: 40em;"></div>
+                </div>
+              </div>
+            </div>
         </form>
         <div class="loader-div" style="display: none;">
           <span class="loader"></span>
@@ -554,5 +564,43 @@
     });
   };
 
+</script>
+<script>
+
+  var dt = [];
+  dt[0] = ['A', 'B'];
+  var i = 1;
+  {% for i in records %}
+  dt[i] = [parseFloat({{ i[0]}}), parseFloat({{ i[1]}})];
+  i++;
+  {% endfor %}
+  console.log(dt)
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(dt);
+
+    var options = {
+      title: '',
+      // curveType: 'function',
+      hAxis: { title: 'Time', minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+      vAxis: { minValue: 0, minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+      animation: { duration: 5000, easing: 'out', startup: true },
+      backgroundColor: { fill: 'transparent' },
+      colors: ['#1f8ef1'],
+      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', position: 'bottom' } },
+      crosshair: { trigger: 'both', opacity: 0.5 },
+      pointSize: 1,
+      pointShape: 'diamond',
+      selectionMode: 'multiple',
+      // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+      // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+      // legend: 'none'
+    };
+
+    var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_2'));
+
+    chart.draw(data, options);
+  }
 </script>
 {% endblock %}
