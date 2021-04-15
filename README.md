@@ -31,12 +31,38 @@
    * Train the model.
    * Pickled the model for further use.
    
-   **Note:** The same procedure is followed to build an anomaly detection for each instrument belonging to each volume level.
+  **Note:** The same procedure is followed to build an anomaly detection for each instrument belonging to each volume level.
 
-
-
-
+  ## Features <h2>
   
+  ## Comparison of Model Performance
+  We can observe that the performance of weighted ensemble is always better than or similar to the solo models.
+  ![]()
+  
+  ## Semi-Supervised Image Classification
+  **Why is there a need for Semi-Supervised Learning?**
+  * Lack of readily available real world or industrial data.
+  * Disparity between large amount of obtainable data and insufficient labeled data.
+  * Class imbalance in case of audio anomaly detection.
+  
+  **Features of Semi-Supervised Learning-**
+  * It is a combination of the Supervised & Unsupervised learning algorithms.
+  * Provides benefits of both supervised & unsupervised approaches.
+  * Cluster analysis can be used to visualize the data distribution better.
+  * We can train basic models without having to use as much of the labeled data for training.
+  
+  **What is a Semi-Supervised approach?**
+  * Train the model with the small amount of labeled training data just like you would in the supervised learning until it gives you good results.
+  * Then us it with the unlabeled training dataset to predict the outputs which are pseudo labels since they may not be quite accurate.
+  * Link the labels from the labeled training data with the pseudo labels created in the previous step.
+  * Link the data inputs in the labeled training data with the inputs in the unlabeled data.ext 
+  * Then, train the model the same way as you did with the labeled set in the beginning in order to decrese the error and improve the model's accuracy.
+
+
+
+
+
+
 
   
   
