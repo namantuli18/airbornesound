@@ -15,36 +15,66 @@
                   <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
                 </div>
               </div> -->
-                        <div class="col-md-4 pr-md-1">
+                        <div class="col-md-5 pr-md-1">
                             <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" class="form-control" placeholder="Username"
-                                    value="{{session.user['userName']}}">
+                                <label style="display:block;">Audio File</label>
+                                <audio controls>
+                                  <source src="./audio/{{session.hist[i]['name']}}" type="audio/wav">
+                                  </audio>
                             </div>
                         </div>
-                        <div class="col-md-4 pr-md-1">
+                        <div class="col-md-5 pl-md-1">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" placeholder="email"
-                                    value="{{session.user['email']}}">
+                                <label for="exampleInputEmail1">Device Type</label>
+                                <input type="text" class="form-control text-white" placeholder=""
+                                    value="{{session.hist[i]['deviceType']}}" disabled>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 pr-md-1">
+                        <div class="col-md-5 pr-md-1">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Name"
-                                    value="{{session.user['Name']}}">
+                                <input type="text" class="form-control text-white" placeholder="Name"
+                                    value="{{session.hist[i]['name']}}" disabled>
                             </div>
                         </div>
-                        <!-- <div class="col-md-6 pl-md-1">
+
+                        <div class="col-md-5 pl-md-1">
+                          <div class="form-group">
+                              <label for="exampleInputEmail1">Probability (Device)</label>
+                              <input type="text" class="form-control text-white" placeholder=""
+                                  value="{{session.hist[i]['dtProb']}}" disabled>
+                          </div>
+                      </div>                        <!-- <div class="col-md-6 pl-md-1">
                 <div class="form-group">
                   <label>Last Name</label>
                   <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
                 </div>
               </div> -->
                     </div>
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                          <div class="form-group">
+                              <label>Anomaly Status</label>
+                              <input type="text"  {% if session.hist[i]['anaStatus']==1  %} class="form-control  text-danger" value="ABNORMAL" {%else%} class="form-control  text-success" value="NORMAL" {%endif%} placeholder="Anomaly"
+                                   disabled>
+                          </div>
+                      </div>
+
+                      <div class="col-md-5 pl-md-1">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Probability (Anomaly)</label>
+                            <input type="text" class="form-control text-white" placeholder=""
+                                value="{{session.hist[i]['anaProb']}}" disabled>
+                        </div>
+                    </div>                        <!-- <div class="col-md-6 pl-md-1">
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+              </div>
+            </div> -->
+                  </div>
                     <!-- <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -86,7 +116,7 @@
                 </form>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-fill btn-primary">Save</button>
+               Sample checked on {{session.hist[i]['createdAt']}} GMT+00:00.
             </div>
         </div>
     </div>

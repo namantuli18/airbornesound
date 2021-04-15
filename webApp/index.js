@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
 app.use(fileUpload());
 app.use(express.static(__dirname + '/assets'))
+app.use('/audio', express.static('uploads'))
 app.use(session({
     key: 'user_sid',
     secret: 'somerandonstuffs',
@@ -62,11 +63,19 @@ app.use(function (req, res, next) {
     res.locals.session = req.session;
     next();
 });
-
+let records = [];
 app.route("/")
     .get(sessionChecker, (req, res, next) => {
-        //Here are the option object in which arguments can be passed for the python_test.js.
-        res.render('index.html', { page: "dashboard" })
+
+            //Here are the option object in which arguments can be passed for the python_test.js.
+            (async function () {
+                const fileContent = await fs.readFile(__dirname + '/csv/foo.csv');
+                records = parse(fileContent, { columns: false });
+                // console.log(records[0][1])
+            })();
+        
+        res.render('index.html', { page: "dashboard",records});
+        
     });
 
 app.route('/user')
@@ -76,9 +85,28 @@ app.route('/user')
 
 app.route('/history')
     .get(sessionChecker, (req, res) => {
+        
 
+        History.findAll({ where: { loginId: req.session.user['id'] } ,order:[['createdAt','DESC']]},).then(function (hist) {
+            if (!hist) {
+                res.render('history.html', { page: "user" });
+            } else {
+                let i;
+                if(req.query.i){
+                 i=req.query.i;
+                }
+                else {
+                 i=0;
+                }
+                req.session.hist=JSON.parse( JSON.stringify(hist));
+                console.log(req.session.hist);
+                res.render('history.html', { page: "history" ,i });
+            }
+        }).catch(err => {
+            console.log(err);
+        });
 
-        res.render('history.html', { page: "user" });
+        
     });
 
 app.route('/report')
@@ -91,17 +119,8 @@ app.route("/logout")
         req.session.destroy();
         res.redirect("/login");
     });
-let records = [];
-app.get("/", (req, res, next) => {
 
-    //Here are the option object in which arguments can be passed for the python_test.js.
-    (async function () {
-        const fileContent = await fs.readFile(__dirname + '/csv/foo.csv');
-        records = parse(fileContent, { columns: false });
-        // console.log(records)
-    })();
-    res.render('index.html', { records });
-});
+
 
 // app.use('/form', express.static(__dirname + '/index.html'));
 
@@ -145,6 +164,7 @@ app.post('/upload', function (req, res) {
     let fileName = uniqueFilename('/uploads', req.session.user['userName']);
     let ext = sampleFile.name.split('.');
     let files = fileName.split('/');
+    files = fileName.split('\\');
     console.log(files + "sajbf  " + ext);
     fileName = files[2].toString() + "." + ext[1].toString();
     uploadPath = __dirname + '/uploads/' + fileName;

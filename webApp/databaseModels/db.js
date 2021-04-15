@@ -81,7 +81,7 @@ const history = sequelize.define('history', {
     }
 });
 
-Users.hasOne(history, {
+Users.hasMany(history, {
     foreignKey: 'loginId'
 });
 history.belongsTo(Users);
