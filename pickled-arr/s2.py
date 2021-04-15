@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import json
 import numpy
+from collections import Counter
 data={}
 with open(os.path.join("slider",'Y.pb'),"rb") as f:
     try:
