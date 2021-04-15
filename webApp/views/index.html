@@ -101,6 +101,30 @@
     <div class="card card-chart">
       <div class="card-header">
         <h5 class="card-category">Plots</h5>
+        <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i>Cumulative Test Accuracy</h3>
+      </div>
+      <div class="card-body">
+        <div id="chart_div_3" style="height: 30em;"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Plots</h5>
+          <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
+        </div>
+        <div class="card-body">
+          <div id="chart_div_4" style="height: 40em;"></div>
+        </div>
+      </div>
+    </div>
+  <div class="col-lg-6">
+    <div class="card card-chart">
+      <div class="card-header">
+        <h5 class="card-category">Plots</h5>
         <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
       </div>
       <div class="card-body">
@@ -476,12 +500,12 @@
       animation: { duration: 1000, easing: 'out', startup: true },
       backgroundColor: { fill: 'transparent' },
       colors: ['#d048b6', '#1f8ef1', '#00d6b4'],
-      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', position: 'bottom' } },
+      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }  },
       crosshair: { trigger: 'both', opacity: 0.5 },
       pointSize: 7,
       pointShape: 'diamond',
       selectionMode: 'multiple',
-
+      chartArea: {width:'80%'},
     };
     chart.draw(dataTable, options);
 
@@ -556,24 +580,24 @@
 </script>
 <script>
 
-  var dt = [];
-  dt[0] = ['Probability', 'Normal','Abnormal'];
+  var dt3 = [];
+  dt3[0] = ['Probability', 'Normal','Abnormal'];
   var i = 1;
   {% for i in range(4094) %}
   
-  dt[i] = [parseFloat({{ data['vgg'][i][0]}}),{%if data['vgg_y'][i] | int == 1 %} parseFloat({{ data['vgg'][i][1]}}),null {%else%} null,parseFloat({{ data['vgg'][i][1]}}) {%endif%}];
+  dt3[i] = [parseFloat({{ data['vgg'][i][0]}}),{%if data['vgg_y'][i] | int == 1 %} parseFloat({{ data['vgg'][i][1]}}),null {%else%} null,parseFloat({{ data['vgg'][i][1]}}) {%endif%}];
   i++;
   {% endfor %}
-  console.log(dt)
+  // console.log(dt3)
   
   google.charts.setOnLoadCallback(drawChart);
   
   
   function drawChart() {
   
-    var data = google.visualization.arrayToDataTable(dt);
-    console.log(data);
-    var options = {
+    var data3 = google.visualization.arrayToDataTable(dt3);
+    // console.log(data3);
+    var options3 = {
       title: 't-SNE Dimensionality Reduction of VGGish Embeddings',
       titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
       tooltip:{isHtml: true,textStyle: {color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px',}, showColorCode: true},
@@ -583,11 +607,12 @@
       animation: { duration: 5000, easing: 'out', startup: true },
       backgroundColor: { fill: 'transparent' },
       colors: ['#1f8ef1', '#00d6b4'],
-      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', position: 'bottom' } },
+      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }, position: 'top', alignment:'end' },
       crosshair: { trigger: 'both', opacity: 0.5 },
       pointSize: 1,
       pointShape: 'diamond',
       selectionMode: 'multiple',
+      chartArea: {width:'80%'},
       // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
       // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
       // legend: 'none'
@@ -595,7 +620,46 @@
 
     var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_2'));
 
-    chart.draw(data, options);
+    chart.draw(data3, options3);
   }
 </script>
+
+<script>
+      google.charts.setOnLoadCallback(drawChart);
+      var dt2=[['Proportion of Labelled Data','VGGish Semi-Supervised','MFCC Semi-Supervised','VGGish Supervised','MFCC Supervised']];
+      var i=1;
+      {% for i in range(9)%}
+      dt2[i]=[parseFloat({{data['l_dist'][0][i]}}),parseFloat({{data['l_dist'][1][i]}}),parseFloat({{data['l_dist'][2][i]}}),parseFloat({{data['l_dist'][3][i]}}),parseFloat({{data['l_dist'][4][i]}})]
+      i++;
+      {% endfor %}
+      console.log(dt2)
+      function drawChart() {
+        var data2 = google.visualization.arrayToDataTable(dt2);
+        console.log(data2)
+        var options2 = {
+      // title: 't-SNE Dimensionality Reduction of VGGish Embeddings',
+      // titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
+      tooltip:{isHtml: true,textStyle: {color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px',}, showColorCode: true},
+      curveType: 'function',
+      hAxis: { title: 'Time', minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+      vAxis: { minValue: 0, minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+      animation: { duration: 5000, easing: 'out', startup: true },
+      backgroundColor: { fill: 'transparent' },
+      colors: ['#d048b6', '#1f8ef1', '#00d6b4','#fcba03'],
+      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }, position: 'top',maxLines:3 },
+      crosshair: { trigger: 'both', opacity: 0.5 },
+      pointSize: 3,
+      pointShape: 'diamond',
+      selectionMode: 'multiple',
+      chartArea: {width:'80%'},
+      // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+      // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+      // legend: 'none'
+    };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div_3'));
+
+        chart.draw(data2, options2);
+      }
+    </script>
 {% endblock %}

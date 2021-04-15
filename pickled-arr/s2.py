@@ -6,13 +6,21 @@ import pandas as pd
 import json
 import numpy
 from collections import Counter
-data={}
-with open(os.path.join("slider",'Y.pb'),"rb") as f:
+arr=[]
+with open(os.path.join("slider",'label_distributions.pb'),"rb") as f:
     try:
-        arr=pickle.load(f)
-        print(arr[3])
-        data['values']= arr
-        print(data['values'])
+        arr.append(pickle.load(f))
+    except Exception as e:
+        print('Hello'+str(e))
+with open(os.path.join("slider",'Y_cummulative.pb'),"rb") as f:
+    try:
+        temp=pickle.load(f)
+        for i in temp:
+            arr.append(i)
+        for i in arr:
+            print(i)
     except:pass
-numpy.savetxt("U_vggish_Y.csv", arr, delimiter=",")
+
+numpy.savetxt("l_dist.csv", arr, delimiter=",")
+
 

@@ -76,10 +76,15 @@ app.route("/")
             (async function () {
             const fileContent2 = await fs.readFile(__dirname + '/csv/U_vggish_Y.csv');
                 data['vgg_y'] = parse(fileContent2, { columns: false });
-                console.log(data)
-        res.render('index.html', { page: "dashboard",data});
+
+
+                (async function () {
+                    const fileContent3 = await fs.readFile(__dirname + '/csv/l_dist.csv');
+                        data['l_dist'] = parse(fileContent3, { columns: false });
+                        console.log(data)
+                    res.render('index.html', { page: "dashboard",data});
             })();
-            
+            })();
     })();
         
     });
