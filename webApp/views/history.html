@@ -1,81 +1,84 @@
 {% extends 'base.html' %}
 {% block content%}
 <div class="row">
-    <div class="col-md-10">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="title">History</h5>
-            </div>
-            <div class="card-body">
-                <form>
-                    <div class="row">
-                        <!-- <div class="col-md-5 pr-md-1">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><i class="tim-icons icon-watch-time  text-white"></i> History</h4>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <!-- <div class="col-md-5 pr-md-1">
                 <div class="form-group">
                   <label>Company (disabled)</label>
                   <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
                 </div>
               </div> -->
-                        <div class="col-md-5 pr-md-1">
-                            <div class="form-group">
-                                <label style="display:block;">Audio File</label>
-                                <audio controls>
-                                  <source src="./audio/{{session.hist[i]['name']}}" type="audio/wav">
-                                  </audio>
-                            </div>
-                        </div>
-                        <div class="col-md-5 pl-md-1">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Device Type</label>
-                                <input type="text" class="form-control text-white" placeholder=""
-                                    value="{{session.hist[i]['deviceType']}}" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5 pr-md-1">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control text-white" placeholder="Name"
-                                    value="{{session.hist[i]['name']}}" disabled>
-                            </div>
-                        </div>
+            <div class="col-md-5 pr-md-1">
+              <div class="form-group">
+                <label style="display:block;">Audio File</label>
+                <audio controls>
+                  <source src="./audio/{{session.hist[i]['name']}}" type="audio/wav">
+                </audio>
+              </div>
+            </div>
+            <div class="col-md-5 pl-md-1">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Device Type</label>
+                <input type="text" class="form-control text-white" placeholder=""
+                  value="{{session.hist[i]['deviceType']}}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 pr-md-1">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control text-white" placeholder="Name"
+                  value="{{session.hist[i]['name']}}" disabled>
+              </div>
+            </div>
 
-                        <div class="col-md-5 pl-md-1">
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">Probability (Device)</label>
-                              <input type="text" class="form-control text-white" placeholder=""
-                                  value="{{session.hist[i]['dtProb']}}" disabled>
-                          </div>
-                      </div>                        <!-- <div class="col-md-6 pl-md-1">
+            <div class="col-md-5 pl-md-1">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Probability (Device)</label>
+                <input type="text" class="form-control text-white" placeholder="" value="{{session.hist[i]['dtProb']}}"
+                  disabled>
+              </div>
+            </div>
+            <!-- <div class="col-md-6 pl-md-1">
                 <div class="form-group">
                   <label>Last Name</label>
                   <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
                 </div>
               </div> -->
-                    </div>
-                    <div class="row">
-                      <div class="col-md-5 pr-md-1">
-                          <div class="form-group">
-                              <label>Anomaly Status</label>
-                              <input type="text"  {% if session.hist[i]['anaStatus']==1  %} class="form-control  text-danger" value="ABNORMAL" {%else%} class="form-control  text-success" value="NORMAL" {%endif%} placeholder="Anomaly"
-                                   disabled>
-                          </div>
-                      </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 pr-md-1">
+              <div class="form-group">
+                <label>Anomaly Status</label>
+                <input type="text" {% if session.hist[i]['anaStatus']==1 %} class="form-control  text-danger"
+                  value="ABNORMAL" {%else%} class="form-control  text-success" value="NORMAL" {%endif%}
+                  placeholder="Anomaly" disabled>
+              </div>
+            </div>
 
-                      <div class="col-md-5 pl-md-1">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Probability (Anomaly)</label>
-                            <input type="text" class="form-control text-white" placeholder=""
-                                value="{{session.hist[i]['anaProb']}}" disabled>
-                        </div>
-                    </div>                        <!-- <div class="col-md-6 pl-md-1">
+            <div class="col-md-5 pl-md-1">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Probability (Anomaly)</label>
+                <input type="text" class="form-control text-white" placeholder="" value="{{session.hist[i]['anaProb']}}"
+                  disabled>
+              </div>
+            </div>
+            <!-- <div class="col-md-6 pl-md-1">
               <div class="form-group">
                 <label>Last Name</label>
                 <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
               </div>
             </div> -->
-                  </div>
-                    <!-- <div class="row">
+          </div>
+          <!-- <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Address</label>
@@ -84,7 +87,7 @@
                 </div>
               </div>
             </div> -->
-                    <!-- <div class="row">
+          <!-- <div class="row">
               <div class="col-md-4 pr-md-1">
                 <div class="form-group">
                   <label>City</label>
@@ -104,7 +107,7 @@
                 </div>
               </div>
             </div> -->
-                    <!-- <div class="row">
+          <!-- <div class="row">
               <div class="col-md-8">
                 <div class="form-group">
                   <label>About Me</label>
@@ -113,14 +116,14 @@
                 </div>
               </div>
             </div> -->
-                </form>
-            </div>
-            <div class="card-footer">
-               Sample checked on {{session.hist[i]['createdAt']}} GMT+00:00.
-            </div>
-        </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        Sample checked on {{session.hist[i]['createdAt']}} GMT+00:00.
+      </div>
     </div>
-    <!-- <div class="col-md-4">
+  </div>
+  <!-- <div class="col-md-4">
       <div class="card card-user">
         <div class="card-body">
           <p class="card-text">
@@ -158,6 +161,143 @@
         </div>
       </div>
     </div> -->
+</div>
+
+<div class="row">
+  <div class="col-lg-12 ">
+    <div class="card ">
+      <div class="card-header">
+        <h4 class="card-title"><i class="tim-icons icon-watch-time  text-white"></i> Previous results</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Device Type
+                </th>
+                <th class="text-center">
+                  Anomaly status
+                </th>
+                <th class="text-center">
+                  Details
+                </th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for data in session.hist %}
+              <tr>
+                <td>
+                  {{data['name']}}
+                </td>
+                <td>
+                  {{data['deviceType']}}
+                </td>
+                <td>
+                  {% if(data['anaStatus'] == 1)%} <p style=color:red;> ABNORMAL</p>
+                  {% else %} <p style=color:green;> NORMAL</p>
+                  {% endif %}
+                </td>
+                <td>
+                  <button class="btn  btn-primary btn-round btn-sm mr-auto" type="button"> Click here</button>
+                </td>
+              </tr>
+              {% endfor %}
+              <!-- <tr>
+                <td>
+                  Minerva Hooper
+                </td>
+                <td>
+                  Curaçao
+                </td>
+                <td>
+                  Sinaai-Waas
+                </td>
+                <td class="text-center">
+                  $23,789
+                </td>
+              </tr> -->
+              <!-- <tr>
+                <td>
+                  Sage Rodriguez
+                </td>
+                <td>
+                  Netherlands
+                </td>
+                <td>
+                  Baileux
+                </td>
+                <td class="text-center">
+                  $56,142
+                </td>
+              </tr> -->
+              <!-- <tr>
+                <td>
+                  Philip Chaney
+                </td>
+                <td>
+                  Korea, South
+                </td>
+                <td>
+                  Overland Park
+                </td>
+                <td class="text-center">
+                  $38,735
+                </td>
+              </tr> -->
+              <!-- <tr>
+                <td>
+                  Doris Greene
+                </td>
+                <td>
+                  Malawi
+                </td>
+                <td>
+                  Feldkirchen in Kärnten
+                </td>
+                <td class="text-center">
+                  $63,542
+                </td>
+              </tr> -->
+              <!-- <tr>
+                <td>
+                  Mason Porter
+                </td>
+                <td>
+                  Chile
+                </td>
+                <td>
+                  Gloucester
+                </td>
+                <td class="text-center">
+                  $78,615
+                </td>
+              </tr> -->
+              <!-- <tr>
+                <td>
+                  Jon Porter
+                </td>
+                <td>
+                  Portugal
+                </td>
+                <td>
+                  Gloucester
+                </td>
+                <td class="text-center">
+                  $98,615
+                </td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {%endblock %}
 {%block scripts%}

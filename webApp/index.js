@@ -67,15 +67,15 @@ let records = [];
 app.route("/")
     .get(sessionChecker, (req, res, next) => {
 
-            //Here are the option object in which arguments can be passed for the python_test.js.
-            (async function () {
-                const fileContent = await fs.readFile(__dirname + '/csv/foo.csv');
-                records = parse(fileContent, { columns: false });
-                // console.log(records[0][1])
-            })();
-        
-        res.render('index.html', { page: "dashboard",records});
-        
+        //Here are the option object in which arguments can be passed for the python_test.js.
+        (async function () {
+            const fileContent = await fs.readFile(__dirname + '/csv/foo.csv');
+            records = parse(fileContent, { columns: false });
+            // console.log(records[0][1])
+        })();
+
+        res.render('index.html', { page: "dashboard", records });
+
     });
 
 app.route('/user')
@@ -85,28 +85,28 @@ app.route('/user')
 
 app.route('/history')
     .get(sessionChecker, (req, res) => {
-        
 
-        History.findAll({ where: { loginId: req.session.user['id'] } ,order:[['createdAt','DESC']]},).then(function (hist) {
+
+        History.findAll({ where: { loginId: req.session.user['id'] }, order: [['createdAt', 'DESC']] },).then(function (hist) {
             if (!hist) {
-                res.render('history.html', { page: "user" });
+                res.render('history.html', { page: "history" });
             } else {
                 let i;
-                if(req.query.i){
-                 i=req.query.i;
+                if (req.query.i) {
+                    i = req.query.i;
                 }
                 else {
-                 i=0;
+                    i = 0;
                 }
-                req.session.hist=JSON.parse( JSON.stringify(hist));
+                req.session.hist = JSON.parse(JSON.stringify(hist));
                 console.log(req.session.hist);
-                res.render('history.html', { page: "history" ,i });
+                res.render('history.html', { page: "history", i });
             }
         }).catch(err => {
             console.log(err);
         });
 
-        
+
     });
 
 app.route('/report')
