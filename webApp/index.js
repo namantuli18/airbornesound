@@ -64,7 +64,7 @@ app.use(function (req, res, next) {
     next();
 });
 let data ={};
-let devices=['fan','slider'];
+let devices=['fan','slider','valve'];
 app.route("/")
     .get(sessionChecker, (req, res, next) => {
 
