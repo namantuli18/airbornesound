@@ -63,18 +63,28 @@ app.use(function (req, res, next) {
     res.locals.session = req.session;
     next();
 });
-let records = [];
+let data = {};
+let devices = ['fan', 'slider', 'valve'];
 app.route("/")
     .get(sessionChecker, (req, res, next) => {
 
         //Here are the option object in which arguments can be passed for the python_test.js.
         (async function () {
-            const fileContent = await fs.readFile(__dirname + '/csv/foo.csv');
-            records = parse(fileContent, { columns: false });
-            // console.log(records[0][1])
-        })();
+            for (var d = 0; d < devices.length; d++) {
+                data[devices[d]] = {};
+                const fileContent = await fs.readFile(__dirname + '/csv/' + devices[d] + '/U_vggish.csv');
+                data[devices[d]]['vgg'] = await parse(fileContent, { columns: false });
 
-        res.render('index.html', { page: "dashboard", records });
+                const fileContent2 = await fs.readFile(__dirname + '/csv/' + devices[d] + '/Y.csv');
+                data[devices[d]]['vgg_y'] = await parse(fileContent2, { columns: false });
+                const fileContent3 = await fs.readFile(__dirname + '/csv/' + devices[d] + '/U_mfcc.csv');
+                data[devices[d]]['U_mfcc'] = await parse(fileContent3, { columns: false });
+                const fileContent4 = await fs.readFile(__dirname + '/csv/' + devices[d] + '/l_dist.csv');
+                data[devices[d]]['l_dist'] = await parse(fileContent4, { columns: false });
+            }
+            console.log(data)
+            res.render('index.html', { page: "dashboard", data, devices });
+        })();
 
     });
 
@@ -225,6 +235,7 @@ setInterval(() => {
         value: [(Math.random()), (Math.random()), (Math.random())]
     });
 }, 5000);
+
 app.listen(PORT, function () {
     console.log('Express server listening on port ', PORT);
 });
