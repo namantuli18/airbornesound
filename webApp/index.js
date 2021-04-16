@@ -64,27 +64,26 @@ app.use(function (req, res, next) {
     next();
 });
 let data ={};
+let devices=['fan','slider'];
 app.route("/")
     .get(sessionChecker, (req, res, next) => {
 
             //Here are the option object in which arguments can be passed for the python_test.js.
             (async function () {
-                const fileContent = await fs.readFile(__dirname + '/csv/U_vggish.csv');
-                data['vgg'] = parse(fileContent, { columns: false });
-                
-            
-            (async function () {
-            const fileContent2 = await fs.readFile(__dirname + '/csv/U_vggish_Y.csv');
-                data['vgg_y'] = parse(fileContent2, { columns: false });
+                for (var d = 0; d < devices.length; d++){
+                data[devices[d]]={};
+                const fileContent = await fs.readFile(__dirname + '/csv/'+devices[d]+'/U_vggish.csv');
+                data[devices[d]]['vgg'] = await parse(fileContent, { columns: false });
 
-
-                (async function () {
-                    const fileContent3 = await fs.readFile(__dirname + '/csv/l_dist.csv');
-                        data['l_dist'] = parse(fileContent3, { columns: false });
-                        console.log(data)
-                    res.render('index.html', { page: "dashboard",data});
-            })();
-            })();
+                const fileContent2 = await fs.readFile(__dirname + '/csv/'+devices[d]+'/Y.csv');
+                data[devices[d]]['vgg_y'] = await parse(fileContent2, { columns: false });
+                const fileContent3 = await fs.readFile(__dirname + '/csv/'+devices[d]+'/U_mfcc.csv');
+                data[devices[d]]['U_mfcc'] =await parse(fileContent3, { columns: false });
+                const fileContent4 = await fs.readFile(__dirname + '/csv/'+devices[d]+'/l_dist.csv');
+                data[devices[d]]['l_dist'] =await parse(fileContent4, { columns: false });
+                }
+                console.log(data)
+                res.render('index.html', { page: "dashboard",data,devices});
     })();
         
     });
