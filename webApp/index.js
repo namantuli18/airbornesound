@@ -235,7 +235,7 @@ app.post('/upload', function (req, res) {
 });
 setInterval(() => {
     pusher.trigger("price-btcusd", "new-price", {
-        value: [(Math.random()), (Math.random()), (Math.random())]
+        value: [(Math.random()), (Math.random()), (Math.random()), (Math.random())]
     });
 }, 5000);
 
