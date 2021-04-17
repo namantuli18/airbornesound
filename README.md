@@ -58,6 +58,28 @@
   * Link the data inputs in the labeled training data with the inputs in the unlabeled data.ext 
   * Then, train the model the same way as you did with the labeled set in the beginning in order to decrese the error and improve the model's accuracy.
 
+**Formulating the Semi-Supervised Learning Approach-**
+* The dataset for the project has been fetched from Dataset: Sound Dataset for Malfunctioning Industrial.
+*  n addition to the approach used in Supervised Learning based on MFCC’s, we have used VGG embeddings for the anomaly detection process.
+*  VGGish is a model released by Google and uses Tensorflow to perceive the process of Audio Classification as an Image Classification task.
+*  It has been trained on millions of sound files.
+*  The output of the model is a 128-dimensional vector representing the learned feature representation of the audio that was used to feed into the fully-connected classification network to learn to classify on the AudioSet dataset, meaning that any information that was relevant in classifying AudioSet has been extracted and is contained in the embedding. 
+*  Mel-frequency cepstral coefficients are a common audio feature representation, especially in the field of speech recognition, and give a representation of the timbre of a sound. 
+*  They are calculated by first converting the audio into a Mel-frequency spectrogram using a short-term Fourier transform (STFT).
+*  A Fourier transform is then taken along the frequency axis of the spectrogram which results in the values for MFCCs .
+*  In this paper, two feature extraction methods are applied to the individual instrument datasets for anomaly detection- 128-dimensional VGGish embeddings and Mel-frequency cepstral coefficients (MFCCs).
+*  The processed dataset (with audio embeddings) will be trained using a Random Forest classifier using EM.
+*  Results will be compared based on performances from two feature extractors. We then investigate the likelihood of unlabeled audio data being accurately concluded from partially labeled audio inputs.
+*  We have ensured that the comparison of model performance and scoring is done on the same splits of data which is stratified on the basis of distribution of classes.
+
+
+
+
+
+
+
+
+
 
 
 
