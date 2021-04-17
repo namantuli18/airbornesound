@@ -93,7 +93,7 @@
           </div>
           <div class="col-sm-4"><select id="chart_select_4" class="selectpicker"
               data-style="btn select-with-transition " data-size="7">
-              {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
+              {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
 
             </select></div>
         </div>
@@ -115,8 +115,8 @@
             <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
           </div>
           <div class="col-sm-4"><select id="chart_select_2" class="selectpicker"
-              data-style="btn select-with-transition custom" data-size="7">
-              {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
+              data-style="btn select-with-transition " data-size="7">
+              {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
 
             </select></div>
         </div>
@@ -138,7 +138,7 @@
           </div>
           <div class="col-sm-4"><select class="selectpicker" id="chart_select_3"
               data-style="btn select-with-transition " data-size="7">
-              {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
+              {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
 
             </select></div>
         </div>
@@ -328,7 +328,8 @@
       </div>
     </div>
   </div>
-</div>{% endblock %} -->
+</div> -->
+{% endblock %}
 {%block scripts%}
 <script>
   Pusher.logToConsole = true;
