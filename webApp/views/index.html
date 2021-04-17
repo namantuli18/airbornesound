@@ -12,35 +12,20 @@
             <h5 class="card-category">Live Updates</h5>
             <h2 class="card-title">Predictions</h2>
           </div>
-          <div class="col-sm-4"><select class="selectpicker" data-style="btn select-with-transition float-right"
-              title="Device Type" data-size="7">
-              <option>Mustard</option>
-              <option>Ketchup</option>
-              <option>Barbecue</option>
-            </select></div>
+          <div class="col-sm-4"><select id="chart-select"class="selectpicker change-factory" data-style="btn select-with-transition float-right"
+            title="Factory" data-size="7">
+            {% for i in factories %}<option value="{{i | replace(' ','')}}">{{i | title}}</option>{% endfor %}
+          </select></div>
           <div class="col-sm-4">
             <div class="btn-group btn-group-toggle float-right fac-toggle" data-toggle="buttons">
-              <label class="btn btn-primary btn-simple active " id="0">
-                <input type="checkbox" class="fac-toggle-a" name="options" checked>
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Factory A</span>
+             {% for i in devices %} <label class="btn btn-primary btn-simple active " id="{{loop.index}}">
+                <input type="checkbox" class="fac-toggle-{{i | replace(' ','')}}" name="options" checked>
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">{{i | title}}</span>
                 <span class="d-block d-sm-none">
                   <i class="tim-icons icon-single-02"></i>
                 </span>
               </label>
-              <label class="btn btn-primary btn-simple active fac-toggle" id="1">
-                <input type="checkbox" class="d-none d-sm-none fac-toggle-b" name="options" checked>
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Factory B</span>
-                <span class="d-block d-sm-none">
-                  <i class="tim-icons icon-gift-2"></i>
-                </span>
-              </label>
-              <label class="btn btn-primary btn-simple active fac-toggle" id="2">
-                <input type="checkbox" class="d-none fac-toggle-c" name="options" checked>
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Factory C</span>
-                <span class="d-block d-sm-none">
-                  <i class="tim-icons icon-tap-02"></i>
-                </span>
-              </label>
+            {% endfor %}
 
             </div>
           </div>
@@ -49,7 +34,7 @@
       <div class="card-body">
         <!-- <div class="chart-area"> -->
         <!-- <canvas id=""> -->
-        <div id="chart_div" style="height: 40em;"></div>
+        <div id="chart_div" style="height: 40rem;"></div>
 
         <!-- </canvas> -->
         <!-- </div> -->
@@ -64,11 +49,12 @@
         <h5 class="card-category">Test audio</h5>
         <h3 class="card-title"><i class="tim-icons icon-cloud-upload-94 text-primary"></i> Upload Sample</h3>
       </div>
-      <div class="card-body" style="height: 480px;">
+      <div class="card-body" >
         <!-- <div class="chart-area">
                   <canvas id="chartLinePurple"></canvas>
                 </div> -->
-        <form style="text-align: center; margin-top:10em;" ref='uploadForm' id='uploadForm' method='post' action=""
+                <div style="height:30em">
+        <form style="text-align: center; padding-top:10em;" ref='uploadForm' id='uploadForm' method='post' action=""
           onsubmit="return false" encType="multipart/form-data">
           <div class="fileinput fileinput-new text-center" data-provides="fileinput">
             <div class="fileinput-preview fileinput-exists thumbnail img-circle " style="height: 60px;"></div>
@@ -88,12 +74,12 @@
               class="btn  btn-primary btn-round btn-sm mr-auto" style="bottom:10px;">Submit</button>
           </div>
         </form>
-        <div class="loader-div text-center" style="display: none; margin-top: 10em; zoom:1.2;">
+        <div class="loader-div text-center" style="display: none; padding-top: 10em; zoom:1.2;">
           <span class="loader align-middle"></span>
         </div>
         <div class="result-audio" style="display: none;">
         </div>
-
+      </div>
       </div>
     </div>
   </div>
@@ -101,19 +87,19 @@
     <div class="card card-chart">
       <div class="card-header">
         <div class="row">
-          <div class="col-sm-6 text-left">
+          <div class="col-sm-8 text-left">
             <h5 class="card-category">Plots</h5>
             <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i>Cumulative Test Accuracy</h3>
           </div>
           <div class="col-sm-4"><select id="chart_select_4" class="selectpicker"
               data-style="btn select-with-transition " data-size="7">
-              {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
+              {% for i in devices %}<option value="{{i | replace(' ','')}}">{{i | title}}</option>{% endfor %}
 
             </select></div>
         </div>
       </div>
       <div class="card-body">
-        {% for i in devices %}<div id="{{i}}_chart_div_4"
+        {% for i in devices %}<div id="{{i | replace(' ','')}}_chart_div_4"
           style="height: 30em; {% if i!='fan'%}display: none;{% endif %}"></div>{% endfor %}
       </div>
     </div>
@@ -124,20 +110,20 @@
     <div class="card card-chart">
       <div class="card-header">
         <div class="row">
-          <div class="col-sm-6 text-left">
+          <div class="col-sm-8 text-left">
             <h5 class="card-category">Plots</h5>
             <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
           </div>
           <div class="col-sm-4"><select id="chart_select_2" class="selectpicker"
               data-style="btn select-with-transition " data-size="7">
-              {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
+              {% for i in devices %}<option value="{{i | replace(' ','')}}">{{i | title}}</option>{% endfor %}
 
             </select></div>
         </div>
       </div>
 
       <div class="card-body">
-        {% for i in devices %}<div id="{{i}}_chart_div_2"
+        {% for i in devices %}<div id="{{i | replace(' ','')}}_chart_div_2"
           style="height: 40em;{% if i!='fan'%}display: none;{% endif %}"></div>{% endfor %}
       </div>
     </div>
@@ -146,19 +132,19 @@
     <div class="card card-chart">
       <div class="card-header">
         <div class="row">
-          <div class="col-sm-6 text-left">
+          <div class="col-sm-8 text-left">
             <h5 class="card-category">Plots</h5>
             <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
           </div>
           <div class="col-sm-4"><select class="selectpicker" id="chart_select_3"
               data-style="btn select-with-transition " data-size="7">
-              {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
+              {% for i in devices %}<option value="{{i | replace(' ','')}}">{{i | title}}</option>{% endfor %}
 
             </select></div>
         </div>
       </div>
       <div class="card-body">
-        {% for i in devices %}<div id="{{i}}_chart_div_3"
+        {% for i in devices %}<div id="{{i | replace(' ','')}}_chart_div_3"
           style="height: 40em;{% if i!='fan'%}display: none;{% endif %}"></div>{% endfor %}
       </div>
     </div>
@@ -354,24 +340,18 @@
   google.charts.load('current', { 'packages': ['corechart'] });
   google.charts.setOnLoadCallback(plotchart);
   $(document).on('click', '.fac-toggle', function () {
-    pusher.unsubscribe('price-btcusd');
+    pusher.unsubscribe($("#chart-select").val());
     google.charts.setOnLoadCallback(plotchart);
   });
+  $("#chart-select").on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+    pusher.unsubscribe(previousValue);
+    google.charts.setOnLoadCallback(plotchart);
 
+  });
   function plotchart() {
     // Instead of hard-coding the initial table data,
     // you could fetch it from your server.
-    let a = $('.fac-toggle-a').is(":checked"), b = $('.fac-toggle-b').is(":checked"), c = $('.fac-toggle-c').is(":checked");;
-    let temp = [[1400, 3424, 1845],
-    [1460, 1400, 3424],
-    [1532, 1460, 1400],
-    [2326, 1532, 1460],
-    [5234, 2326, 1532],
-    [3234, 5234, 2326],
-    [4234, 3234, 5234],
-    [1245, 4234, 3234],
-    [1845, 1245, 4234],
-    [3424, 1845, 1245]];
+    {%for i in devices%} let d_{{i | replace(' ','')}} = $(".fac-toggle-{{i | replace(' ','')}}").is(":checked");{% endfor %}
     var currentdate = new Date();
     var time = currentdate.getHours() + ":"
       + currentdate.getMinutes() + ":"
@@ -379,12 +359,8 @@
     let dt = [];
     dt[0] = [];
     dt[0].push('Time');
-    if (a)
-      dt[0].push('Fac A');
-    if (b)
-      dt[0].push('Fac B');
-    if (c)
-      dt[0].push('Fac C');
+    {% for i in devices %}if (d_{{i | replace(' ','')}})
+      dt[0].push('{{i | title}}');{% endfor %}
     for (var i = 1; i < 11; i++) {
       dt[i] = [];
       currentdate.setSeconds(currentdate.getSeconds() + 5);
@@ -392,12 +368,9 @@
         + ('0' + currentdate.getMinutes()).slice(-2) + ":"
         + ('0' + currentdate.getSeconds()).slice(-2);
       dt[i].push(time);
-      if (a)
-        dt[i].push((Math.random()));
-      if (b)
-        dt[i].push((Math.random()));
-      if (c)
-        dt[i].push((Math.random()));
+      {% for i in devices %}if (d_{{i | replace(' ','')}})
+        dt[i].push((Math.random()));{% endfor %}
+      
 
     }
     const dataTable = new google.visualization.arrayToDataTable(dt);
@@ -411,7 +384,7 @@
       vAxis: { minValue: 0, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
       animation: { duration: 1000, easing: 'out', startup: true },
       backgroundColor: { fill: 'transparent' },
-      colors: ['#d048b6', '#1f8ef1', '#00d6b4'],
+      colors: ['#d048b6', '#1f8ef1', '#00d6b4', '#fcba03'],
       legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' } },
       crosshair: { trigger: 'both', opacity: 0.5 },
       pointSize: 7,
@@ -422,20 +395,18 @@
     chart.draw(dataTable, options);
 
 
-    const channel = pusher.subscribe('price-btcusd');
-    channel.bind('new-price', data => {
+    const channel = pusher.subscribe($("#chart-select").val());
+    channel.bind('updates', data => {
       currentdate.setSeconds(currentdate.getSeconds() + 5);
       var time = ('0' + currentdate.getHours()).slice(-2) + ":"
         + ('0' + currentdate.getMinutes()).slice(-2) + ":"
         + ('0' + currentdate.getSeconds()).slice(-2);
       let row = [];
       row.push(time);
-      if (a)
-        row.push(data.value[0]);
-      if (b)
-        row.push(data.value[1]);
-      if (c)
-        row.push(data.value[2]);
+      {%for i in devices%}
+      if (d_{{i | replace(' ','')}})
+        row.push(data.value[{{loop.index}}-1]);{% endfor %}
+      
       dataTable.addRow(row);
       chart.draw(dataTable, options);
       setTimeout(function () {
@@ -498,29 +469,29 @@
 
 <script>
   {%for i in devices %}
-  var {{ i }}_dt2 = [];
-  {{ i }}_dt2[0] = ['Probability', 'Normal', 'Abnormal'];
+  var {{i | replace(' ','')}}_dt2 = [];
+  {{i | replace(' ','')}}_dt2[0] = ['Probability', 'Normal', 'Abnormal'];
   var i = 1;
   {% for j in range(data[i]['vgg'] | length) %}
 
-  {{ i }}_dt2[i] = [parseFloat({{ data[i]['vgg'][j][0] }}), {%if data[i]['vgg_y'][j] | int == 1 %} parseFloat({{ data[i]['vgg'][j][1] }}), null {%else%} null, parseFloat({{ data[i]['vgg'][j][1] }}) {% endif %}];
+  {{i | replace(' ','')}}_dt2[i] = [parseFloat({{ data[i]['vgg'][j][0] }}), {%if data[i]['vgg_y'][j] | int == 1 %} parseFloat({{ data[i]['vgg'][j][1] }}), null {%else%} null, parseFloat({{ data[i]['vgg'][j][1] }}) {% endif %}];
   i++;
   {% endfor %}
   // console.log(dt3)
 
-  google.charts.setOnLoadCallback({{ i }}_drawChart2);
+  google.charts.setOnLoadCallback({{i | replace(' ','')}}_drawChart2);
 
 
-  function {{ i }}_drawChart2() {
+  function {{i | replace(' ','')}}_drawChart2() {
 
-    var {{ i }}_data2 = google.visualization.arrayToDataTable({{ i }}_dt2);
+    var {{i | replace(' ','')}}_data2 = google.visualization.arrayToDataTable({{i | replace(' ','')}}_dt2);
   // console.log(data3);
-  var {{ i }}_options2 = {
+  var {{i | replace(' ','')}}_options2 = {
     title: 't-SNE Dimensionality Reduction of VGGish Embeddings',
     titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
     tooltip: { isHtml: true, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', }, showColorCode: true },
     // curveType: 'function',
-    hAxis: { title: 'Time', minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+    hAxis: { title: '', minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
     vAxis: { minValue: 0, minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
     animation: { duration: 2000, easing: 'out', startup: true },
     backgroundColor: { fill: 'transparent' },
@@ -536,35 +507,35 @@
     // legend: 'none'
   };
 
-  var chart = new google.visualization.ScatterChart(document.getElementById('{{i}}_chart_div_2'));
+  var chart = new google.visualization.ScatterChart(document.getElementById('{{i | replace(' ','')}}_chart_div_2'));
 
-  chart.draw({{ i }}_data2, {{ i }}_options2);
+  chart.draw({{i | replace(' ','')}}_data2, {{i | replace(' ','')}}_options2);
   }
 
 
-  var {{ i }}_dt3 = [];
-  {{ i }}_dt3[0] = ['Probability', 'Normal', 'Abnormal'];
+  var {{i | replace(' ','')}}_dt3 = [];
+  {{i | replace(' ','')}}_dt3[0] = ['Probability', 'Normal', 'Abnormal'];
   i = 1;
   {% for j in range(data[i]['U_mfcc'] | length) %}
 
-  {{ i }}_dt3[i] = [parseFloat({{ data[i]['U_mfcc'][j][0] }}), {%if data[i]['vgg_y'][j] | int == 1 %} parseFloat({{ data[i]['U_mfcc'][j][1] }}), null {%else%} null, parseFloat({{ data[i]['U_mfcc'][j][1] }}) {% endif %}];
+  {{i | replace(' ','')}}_dt3[i] = [parseFloat({{ data[i]['U_mfcc'][j][0] }}), {%if data[i]['vgg_y'][j] | int == 1 %} parseFloat({{ data[i]['U_mfcc'][j][1] }}), null {%else%} null, parseFloat({{ data[i]['U_mfcc'][j][1] }}) {% endif %}];
   i++;
   {% endfor %}
-  console.log({{ i }}_dt3)
+  console.log({{i | replace(' ','')}}_dt3)
 
-  google.charts.setOnLoadCallback({{ i }}_drawChart3);
+  google.charts.setOnLoadCallback({{i | replace(' ','')}}_drawChart3);
 
 
-  function {{ i }}_drawChart3() {
+  function {{i | replace(' ','')}}_drawChart3() {
 
-    var {{ i }}_data3 = google.visualization.arrayToDataTable({{ i }}_dt3);
+    var {{i | replace(' ','')}}_data3 = google.visualization.arrayToDataTable({{i | replace(' ','')}}_dt3);
   // console.log(data3);
-  var {{ i }}_options3 = {
+  var {{i | replace(' ','')}}_options3 = {
     title: 't-SNE Dimensionality Reduction of MFCC Embeddings',
     titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
     tooltip: { isHtml: true, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', }, showColorCode: true },
     // curveType: 'function',
-    hAxis: { title: 'Time', minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+    hAxis: { title: '', minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
     vAxis: { minValue: 0, minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
     animation: { duration: 2000, easing: 'out', startup: true },
     backgroundColor: { fill: 'transparent' },
@@ -580,30 +551,30 @@
     // legend: 'none'
   };
 
-  var chart = new google.visualization.ScatterChart(document.getElementById('{{i}}_chart_div_3'));
+  var chart = new google.visualization.ScatterChart(document.getElementById('{{i | replace(' ','')}}_chart_div_3'));
 
-  chart.draw({{ i }}_data3, {{ i }}_options3);
+  chart.draw({{i | replace(' ','')}}_data3, {{i | replace(' ','')}}_options3);
 }
 
 
-  var {{ i }}_dt4 = [['Proportion of Labelled Data', 'VGGish Semi-Supervised', 'MFCC Semi-Supervised', 'VGGish Supervised', 'MFCC Supervised']];
+  var {{i | replace(' ','')}}_dt4 = [['Proportion of Labelled Data', 'VGGish Semi-Supervised', 'MFCC Semi-Supervised', 'VGGish Supervised', 'MFCC Supervised']];
   i = 1;
   {% for j in range(data[i]['l_dist'][0] | length) %}
-  {{ i }}_dt4[i] = [parseFloat({{ data[i]['l_dist'][0][j] }}), parseFloat({{ data[i]['l_dist'][1][j] }}), parseFloat({{ data[i]['l_dist'][2][j] }}), parseFloat({{ data[i]['l_dist'][3][j] }}), parseFloat({{ data[i]['l_dist'][4][j] }})]
+  {{i | replace(' ','')}}_dt4[i] = [parseFloat({{ data[i]['l_dist'][0][j] }}), parseFloat({{ data[i]['l_dist'][1][j] }}), parseFloat({{ data[i]['l_dist'][2][j] }}), parseFloat({{ data[i]['l_dist'][3][j] }}), parseFloat({{ data[i]['l_dist'][4][j] }})]
   i++;
   {% endfor %}
   // console.log({{i}}_dt4)
-  google.charts.setOnLoadCallback({{ i }}_drawChart4);
-  function {{ i }}_drawChart4() {
-    var {{ i }}_data4 = google.visualization.arrayToDataTable({{ i }}_dt4);
+  google.charts.setOnLoadCallback({{i | replace(' ','')}}_drawChart4);
+  function {{i | replace(' ','')}}_drawChart4() {
+    var {{i | replace(' ','')}}_data4 = google.visualization.arrayToDataTable({{i | replace(' ','')}}_dt4);
   // console.log({{i}}_data4)
-  var {{ i }}_options4 = {
+  var {{i | replace(' ','')}}_options4 = {
     // title: 't-SNE Dimensionality Reduction of VGGish Embeddings',
     // titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
     tooltip: { isHtml: true, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', }, showColorCode: true },
     curveType: 'function',
-    hAxis: { title: 'Time', minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
-    vAxis: { minValue: 0, minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+    hAxis: { title: 'Label Distribution', minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+    vAxis: { title: 'Accuracy',minValue: 0, minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
     animation: { duration: 2000, easing: 'out', startup: true },
     backgroundColor: { fill: 'transparent' },
     colors: ['#d048b6', '#1f8ef1', '#00d6b4', '#fcba03'],
@@ -618,9 +589,9 @@
     // legend: 'none'
   };
 
-  var chart = new google.visualization.LineChart(document.getElementById('{{i}}_chart_div_4'));
+  var chart = new google.visualization.LineChart(document.getElementById('{{i | replace(' ','')}}_chart_div_4'));
 
-  chart.draw({{ i }}_data4, {{ i }}_options4);
+  chart.draw({{i | replace(' ','')}}_data4, {{i | replace(' ','')}}_options4);
       };
   // $(document).on('change', '#upload_audio_btn', function () {
   //   form_submit();

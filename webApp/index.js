@@ -123,6 +123,9 @@ app.route('/history')
 app.route('/report')
     .get(sessionChecker, (reqe, res) => {
         res.render('report.html', { page: "report" ,devices});
+    })
+    .post(sessionChecker, (reqe, res) => {
+        res.render('report.html', { page: "report" ,devices});
     });
 
 app.route("/logout")
@@ -235,17 +238,17 @@ app.post('/upload', function (req, res) {
     });
 });
 setInterval(() => {
-    const value=[(Math.random()), (Math.random()), (Math.random()), (Math.random())];
+    let value=[(Math.random()), (Math.random()), (Math.random()), (Math.random())];
     
-    const x=Math.floor(Math.random()*3);
-    const k="";
+    let x=Math.floor(Math.random()*3);
+    let k="";
     for( let i=0;i<devices.length;i++){
         if(Math.round(value[i]-0.3))
             k="ABNORMAL";
         else{
             k="NORMAL";
             }
-    const query = History.create({
+    const query = report.create({
         facName: factories[x] ,
         id: uuid(),
         deviceType: devices[i],
