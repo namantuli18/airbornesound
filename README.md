@@ -1,12 +1,21 @@
 # Anomaly Detection Using Airborne Sound 
 
 ## Using pre-existing library of Models
+
+If we know the device type
+
 ```console
-foo@bar:~$ whoami
-foo
+foo@bar:~$ python3 library.py --type pump --audio "00000000.wav"
+Probability for the given pump sound being an anomaly is 1.0
+
 ```
+If we want to identify the device type too
+```console
+foo@bar:~$ python3 library.py --audio "00000000.wav"
+Device type detected : pump
+Probability for the given pump sound being an anomaly is 1.0
 
-
+```
 
 
 ## Description <h2> 
