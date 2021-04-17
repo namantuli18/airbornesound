@@ -22,21 +22,21 @@
             <div class="btn-group btn-group-toggle float-right fac-toggle" data-toggle="buttons">
               <label class="btn btn-primary btn-simple active " id="0">
                 <input type="checkbox" class="fac-toggle-a" name="options" checked>
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Accounts</span>
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Factory A</span>
                 <span class="d-block d-sm-none">
                   <i class="tim-icons icon-single-02"></i>
                 </span>
               </label>
               <label class="btn btn-primary btn-simple active fac-toggle" id="1">
                 <input type="checkbox" class="d-none d-sm-none fac-toggle-b" name="options" checked>
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Purchases</span>
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Factory B</span>
                 <span class="d-block d-sm-none">
                   <i class="tim-icons icon-gift-2"></i>
                 </span>
               </label>
               <label class="btn btn-primary btn-simple active fac-toggle" id="2">
                 <input type="checkbox" class="d-none fac-toggle-c" name="options" checked>
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Sessions</span>
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Factory C</span>
                 <span class="d-block d-sm-none">
                   <i class="tim-icons icon-tap-02"></i>
                 </span>
@@ -64,11 +64,11 @@
         <h5 class="card-category">Test audio</h5>
         <h3 class="card-title"><i class="tim-icons icon-cloud-upload-94 text-primary"></i> Upload Sample</h3>
       </div>
-      <div class="card-body" style="height: 220px;">
+      <div class="card-body" style="height: 480px;">
         <!-- <div class="chart-area">
                   <canvas id="chartLinePurple"></canvas>
                 </div> -->
-        <form style="text-align: center;" ref='uploadForm' id='uploadForm' method='post' action=""
+        <form style="text-align: center; margin-top:10em;" ref='uploadForm' id='uploadForm' method='post' action=""
           onsubmit="return false" encType="multipart/form-data">
           <div class="fileinput fileinput-new text-center" data-provides="fileinput">
             <div class="fileinput-preview fileinput-exists thumbnail img-circle " style="height: 60px;"></div>
@@ -78,18 +78,18 @@
                 <span class="fileinput-exists">Change</span>
                 <input type="file" accept=".wav , .mp3" name="sampleFile" /></span>
 
-              &nbsp;&nbsp;&nbsp;&nbsp;<a href="" class="btn btn-sm btn-danger btn-round fileinput-exists"
+              &nbsp;&nbsp;&nbsp;&nbsp;<a id="remove"href="" class="btn btn-sm btn-danger btn-round fileinput-exists"
                 data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
             </div>
           </div>
           <br>
           <div style="text-align:right;position: absolute;bottom: 0; width: 96%;">
             <button id="upload_audio_btn" type="submit "
-              class="btn  btn-primary btn-round btn-sm mr-auto">Submit</button>
+              class="btn  btn-primary btn-round btn-sm mr-auto" style="bottom:10px;">Submit</button>
           </div>
         </form>
-        <div class="loader-div" style="display: none;">
-          <span class="loader"></span>
+        <div class="loader-div text-center" style="display: none; margin-top: 10em; zoom:1.2;">
+          <span class="loader align-middle"></span>
         </div>
         <div class="result-audio" style="display: none;">
         </div>
@@ -100,58 +100,66 @@
   <div class="col-lg-6">
     <div class="card card-chart">
       <div class="card-header">
-        <div class="row"><div class="col-sm-6 text-left">
-        <h5 class="card-category">Plots</h5>
-        <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i>Cumulative Test Accuracy</h3>
-      </div>
-      <div class="col-sm-4"><select id="chart_select_4" class="selectpicker" data-style="btn select-with-transition "
-         data-size="7">
-        {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
-        
-      </select></div>
-      </div>
+        <div class="row">
+          <div class="col-sm-6 text-left">
+            <h5 class="card-category">Plots</h5>
+            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i>Cumulative Test Accuracy</h3>
+          </div>
+          <div class="col-sm-4"><select id="chart_select_4" class="selectpicker"
+              data-style="btn select-with-transition " data-size="7">
+              {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
+
+            </select></div>
+        </div>
       </div>
       <div class="card-body">
-        {% for i in devices %}<div id="{{i}}_chart_div_4" style="height: 30em; {% if i!='fan'%}display: none;{% endif %}"></div>{% endfor %}
+        {% for i in devices %}<div id="{{i}}_chart_div_4"
+          style="height: 30em; {% if i!='fan'%}display: none;{% endif %}"></div>{% endfor %}
       </div>
     </div>
   </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="card card-chart">
-        <div class="card-header">
-          <div class="row"><div class="col-sm-6 text-left">
-          <h5 class="card-category">Plots</h5>
-          <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
-        </div>
-        <div class="col-sm-4"><select id="chart_select_2" class="selectpicker" data-style="btn select-with-transition "
-          data-size="7">
-         {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
-         
-       </select></div>
-        </div></div>
-        
-        <div class="card-body">
-          {% for i in devices %}<div id="{{i}}_chart_div_2" style="height: 40em;{% if i!='fan'%}display: none;{% endif %}"></div>{% endfor %}
-        </div>
-      </div>
-    </div>
+</div>
+<div class="row">
   <div class="col-lg-6">
     <div class="card card-chart">
       <div class="card-header">
-        <div class="row"><div class="col-sm-6 text-left">
-        <h5 class="card-category">Plots</h5>
-        <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
+        <div class="row">
+          <div class="col-sm-6 text-left">
+            <h5 class="card-category">Plots</h5>
+            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
+          </div>
+          <div class="col-sm-4"><select id="chart_select_2" class="selectpicker"
+              data-style="btn select-with-transition " data-size="7">
+              {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
+
+            </select></div>
+        </div>
       </div>
-      <div class="col-sm-4"><select class="selectpicker" id="chart_select_3"  data-style="btn select-with-transition "
-        data-size="7">
-       {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
-       
-     </select></div>
-      </div></div>
+
       <div class="card-body">
-        {% for i in devices %}<div id="{{i}}_chart_div_3" style="height: 40em;{% if i!='fan'%}display: none;{% endif %}"></div>{% endfor %}
+        {% for i in devices %}<div id="{{i}}_chart_div_2"
+          style="height: 40em;{% if i!='fan'%}display: none;{% endif %}"></div>{% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card card-chart">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-sm-6 text-left">
+            <h5 class="card-category">Plots</h5>
+            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i> Semi Supervised</h3>
+          </div>
+          <div class="col-sm-4"><select class="selectpicker" id="chart_select_3"
+              data-style="btn select-with-transition " data-size="7">
+              {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
+
+            </select></div>
+        </div>
+      </div>
+      <div class="card-body">
+        {% for i in devices %}<div id="{{i}}_chart_div_3"
+          style="height: 40em;{% if i!='fan'%}display: none;{% endif %}"></div>{% endfor %}
       </div>
     </div>
   </div>
@@ -396,19 +404,19 @@
       document.getElementById('chart_div'));
     const options = {
       title: '',
-      tooltip:{isHtml: true,textStyle: {color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px',}, showColorCode: true},
+      tooltip: { isHtml: true, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', }, showColorCode: true },
       curveType: 'function',
       hAxis: { title: 'Time', titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
       vAxis: { minValue: 0, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
       animation: { duration: 1000, easing: 'out', startup: true },
       backgroundColor: { fill: 'transparent' },
       colors: ['#d048b6', '#1f8ef1', '#00d6b4'],
-      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }  },
+      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' } },
       crosshair: { trigger: 'both', opacity: 0.5 },
       pointSize: 7,
       pointShape: 'diamond',
       selectionMode: 'multiple',
-      chartArea: {width:'80%'},
+      chartArea: { width: '80%' },
     };
     chart.draw(dataTable, options);
 
@@ -442,6 +450,11 @@
 
   $(document).on('click', '#upload_audio_btn', function () {
     form_submit();
+  });
+  $(document).on('click', '#reupload_audio_btn', function () {
+    $('.result-audio').css("display", "none");
+    $('#uploadForm').css("display", "block");
+    $('#remove').trigger("click");
   });
   function form_submit() {
 
@@ -483,84 +496,84 @@
 </script>
 
 <script>
-{%for i in devices%}
-  var {{i}}_dt2 = [];
-  {{i}}_dt2[0] = ['Probability', 'Normal','Abnormal'];
+  {%for i in devices %}
+  var {{ i }}_dt2 = [];
+  {{ i }}_dt2[0] = ['Probability', 'Normal', 'Abnormal'];
   var i = 1;
-  {% for j in range(data[i]['vgg'] | length)  %}
-  
-  {{i}}_dt2[i] = [parseFloat({{ data[i]['vgg'][j][0]}}),{%if data[i]['vgg_y'][j] | int == 1 %} parseFloat({{ data[i]['vgg'][j][1]}}),null {%else%} null,parseFloat({{ data[i]['vgg'][j][1]}}) {%endif%}];
+  {% for j in range(data[i]['vgg'] | length) %}
+
+  {{ i }}_dt2[i] = [parseFloat({{ data[i]['vgg'][j][0] }}), {%if data[i]['vgg_y'][j] | int == 1 %} parseFloat({{ data[i]['vgg'][j][1] }}), null {%else%} null, parseFloat({{ data[i]['vgg'][j][1] }}) {% endif %}];
   i++;
   {% endfor %}
   // console.log(dt3)
-  
-  google.charts.setOnLoadCallback({{i}}_drawChart2);
-  
-  
-  function {{i}}_drawChart2() {
-  
-    var {{i}}_data2 = google.visualization.arrayToDataTable({{i}}_dt2);
-    // console.log(data3);
-    var {{i}}_options2 = {
-      title: 't-SNE Dimensionality Reduction of VGGish Embeddings',
-      titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
-      tooltip:{isHtml: true,textStyle: {color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px',}, showColorCode: true},
-      // curveType: 'function',
-      hAxis: { title: 'Time', minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
-      vAxis: { minValue: 0, minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
-      animation: { duration: 2000, easing: 'out', startup: true },
-      backgroundColor: { fill: 'transparent' },
-      colors: ['#1f8ef1', '#00d6b4'],
-      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }, position: 'top', alignment:'end' },
-      crosshair: { trigger: 'both', opacity: 0.5 },
-      pointSize: 1,
-      pointShape: 'diamond',
-      selectionMode: 'multiple',
-      chartArea: {width:'80%'},
-      // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
-      // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
-      // legend: 'none'
-    };
 
-    var chart = new google.visualization.ScatterChart(document.getElementById('{{i}}_chart_div_2'));
-
-    chart.draw({{i}}_data2, {{i}}_options2);
-  }
+  google.charts.setOnLoadCallback({{ i }}_drawChart2);
 
 
-var {{i}}_dt3 = [];
-{{i}}_dt3[0] = ['Probability', 'Normal','Abnormal'];
-i = 1;
-{% for j in range(data[i]['U_mfcc'] | length) %}
+  function {{ i }}_drawChart2() {
 
-{{i}}_dt3[i] = [parseFloat({{ data[i]['U_mfcc'][j][0]}}),{%if data[i]['vgg_y'][j] | int == 1 %} parseFloat({{ data[i]['U_mfcc'][j][0]}}),null {%else%} null,parseFloat({{ data[i]['U_mfcc'][j][1]}}) {%endif%}];
-i++;
-{% endfor %}
- console.log({{i}}_dt3)
-
-google.charts.setOnLoadCallback({{i}}_drawChart3);
-
-
-function {{i}}_drawChart3() {
-
-  var {{i}}_data3 = google.visualization.arrayToDataTable({{i}}_dt3);
+    var {{ i }}_data2 = google.visualization.arrayToDataTable({{ i }}_dt2);
   // console.log(data3);
-  var {{i}}_options3 = {
-    title: 't-SNE Dimensionality Reduction of MFCC Embeddings',
+  var {{ i }}_options2 = {
+    title: 't-SNE Dimensionality Reduction of VGGish Embeddings',
     titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
-    tooltip:{isHtml: true,textStyle: {color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px',}, showColorCode: true},
+    tooltip: { isHtml: true, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', }, showColorCode: true },
     // curveType: 'function',
     hAxis: { title: 'Time', minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
     vAxis: { minValue: 0, minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
     animation: { duration: 2000, easing: 'out', startup: true },
     backgroundColor: { fill: 'transparent' },
     colors: ['#1f8ef1', '#00d6b4'],
-    legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }, position: 'top', alignment:'end' },
+    legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }, position: 'top', alignment: 'end' },
     crosshair: { trigger: 'both', opacity: 0.5 },
     pointSize: 1,
     pointShape: 'diamond',
     selectionMode: 'multiple',
-    chartArea: {width:'80%'},
+    chartArea: { width: '80%' },
+    // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+    // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+    // legend: 'none'
+  };
+
+  var chart = new google.visualization.ScatterChart(document.getElementById('{{i}}_chart_div_2'));
+
+  chart.draw({{ i }}_data2, {{ i }}_options2);
+  }
+
+
+  var {{ i }}_dt3 = [];
+  {{ i }}_dt3[0] = ['Probability', 'Normal', 'Abnormal'];
+  i = 1;
+  {% for j in range(data[i]['U_mfcc'] | length) %}
+
+  {{ i }}_dt3[i] = [parseFloat({{ data[i]['U_mfcc'][j][0] }}), {%if data[i]['vgg_y'][j] | int == 1 %} parseFloat({{ data[i]['U_mfcc'][j][1] }}), null {%else%} null, parseFloat({{ data[i]['U_mfcc'][j][1] }}) {% endif %}];
+  i++;
+  {% endfor %}
+  console.log({{ i }}_dt3)
+
+  google.charts.setOnLoadCallback({{ i }}_drawChart3);
+
+
+  function {{ i }}_drawChart3() {
+
+    var {{ i }}_data3 = google.visualization.arrayToDataTable({{ i }}_dt3);
+  // console.log(data3);
+  var {{ i }}_options3 = {
+    title: 't-SNE Dimensionality Reduction of MFCC Embeddings',
+    titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
+    tooltip: { isHtml: true, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', }, showColorCode: true },
+    // curveType: 'function',
+    hAxis: { title: 'Time', minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+    vAxis: { minValue: 0, minValue: -100, maxValue: 100, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+    animation: { duration: 2000, easing: 'out', startup: true },
+    backgroundColor: { fill: 'transparent' },
+    colors: ['#1f8ef1', '#00d6b4'],
+    legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }, position: 'top', alignment: 'end' },
+    crosshair: { trigger: 'both', opacity: 0.5 },
+    pointSize: 1,
+    pointShape: 'diamond',
+    selectionMode: 'multiple',
+    chartArea: { width: '80%' },
     // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
     // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
     // legend: 'none'
@@ -568,69 +581,69 @@ function {{i}}_drawChart3() {
 
   var chart = new google.visualization.ScatterChart(document.getElementById('{{i}}_chart_div_3'));
 
-  chart.draw({{i}}_data3, {{i}}_options3);
+  chart.draw({{ i }}_data3, {{ i }}_options3);
 }
 
-      
-      var {{i}}_dt4=[['Proportion of Labelled Data','VGGish Semi-Supervised','MFCC Semi-Supervised','VGGish Supervised','MFCC Supervised']];
-       i=1;
-      {% for j in range(data[i]['l_dist'][0] | length)%}
-      {{i}}_dt4[i]=[parseFloat({{data[i]['l_dist'][0][j]}}),parseFloat({{data[i]['l_dist'][1][j]}}),parseFloat({{data[i]['l_dist'][2][j]}}),parseFloat({{data[i]['l_dist'][3][j]}}),parseFloat({{data[i]['l_dist'][4][j]}})]
-      i++;
-      {% endfor %}
-      // console.log({{i}}_dt4)
-      google.charts.setOnLoadCallback({{i}}_drawChart4);
-      function {{i}}_drawChart4() {
-        var {{i}}_data4 = google.visualization.arrayToDataTable({{i}}_dt4);
-        // console.log({{i}}_data4)
-        var {{i}}_options4 = {
-      // title: 't-SNE Dimensionality Reduction of VGGish Embeddings',
-      // titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
-      tooltip:{isHtml: true,textStyle: {color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px',}, showColorCode: true},
-      curveType: 'function',
-      hAxis: { title: 'Time', minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
-      vAxis: { minValue: 0, minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
-      animation: { duration: 2000, easing: 'out', startup: true },
-      backgroundColor: { fill: 'transparent' },
-      colors: ['#d048b6', '#1f8ef1', '#00d6b4','#fcba03'],
-      legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }, position: 'top',maxLines:3 },
-      crosshair: { trigger: 'both', opacity: 0.5 },
-      pointSize: 3,
-      pointShape: 'diamond',
-      selectionMode: 'multiple',
-      chartArea: {width:'80%'},
-      // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
-      // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
-      // legend: 'none'
-    };
 
-        var chart = new google.visualization.LineChart(document.getElementById('{{i}}_chart_div_4'));
+  var {{ i }}_dt4 = [['Proportion of Labelled Data', 'VGGish Semi-Supervised', 'MFCC Semi-Supervised', 'VGGish Supervised', 'MFCC Supervised']];
+  i = 1;
+  {% for j in range(data[i]['l_dist'][0] | length) %}
+  {{ i }}_dt4[i] = [parseFloat({{ data[i]['l_dist'][0][j] }}), parseFloat({{ data[i]['l_dist'][1][j] }}), parseFloat({{ data[i]['l_dist'][2][j] }}), parseFloat({{ data[i]['l_dist'][3][j] }}), parseFloat({{ data[i]['l_dist'][4][j] }})]
+  i++;
+  {% endfor %}
+  // console.log({{i}}_dt4)
+  google.charts.setOnLoadCallback({{ i }}_drawChart4);
+  function {{ i }}_drawChart4() {
+    var {{ i }}_data4 = google.visualization.arrayToDataTable({{ i }}_dt4);
+  // console.log({{i}}_data4)
+  var {{ i }}_options4 = {
+    // title: 't-SNE Dimensionality Reduction of VGGish Embeddings',
+    // titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true },
+    tooltip: { isHtml: true, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px', }, showColorCode: true },
+    curveType: 'function',
+    hAxis: { title: 'Time', minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff', fontName: "'Poppins', sans-serif", fontSize: '15px', italic: false, bold: true }, gridlines: { color: '#27293d', count: 5, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+    vAxis: { minValue: 0, minValue: 0, maxValue: 1, titleTextStyle: { color: '#fff' }, gridlines: { color: '#27293d', count: 2, width: 1 }, minorGridlines: { count: 0 }, textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '15px' }, baselineColor: '#27293d' },
+    animation: { duration: 2000, easing: 'out', startup: true },
+    backgroundColor: { fill: 'transparent' },
+    colors: ['#d048b6', '#1f8ef1', '#00d6b4', '#fcba03'],
+    legend: { textStyle: { color: '#9A9A9A', fontName: "'Poppins', sans-serif", fontSize: '10px' }, position: 'top', maxLines: 3 },
+    crosshair: { trigger: 'both', opacity: 0.5 },
+    pointSize: 3,
+    pointShape: 'diamond',
+    selectionMode: 'multiple',
+    chartArea: { width: '80%' },
+    // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+    // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+    // legend: 'none'
+  };
 
-        chart.draw({{i}}_data4, {{i}}_options4);
+  var chart = new google.visualization.LineChart(document.getElementById('{{i}}_chart_div_4'));
+
+  chart.draw({{ i }}_data4, {{ i }}_options4);
       };
   // $(document).on('change', '#upload_audio_btn', function () {
   //   form_submit();
   // });
 
   {% endfor %}
-  {% for p in range(2,5)%}
-    var sel='#chart_select_{{p}}';
+  {% for p in range(2, 5) %}
+  var sel = '#chart_select_{{p}}';
   $(sel).on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-    var currentValue=$(sel).val();
-    var pc_div='#'+previousValue+'_chart_div_{{p}}';
-    var cc_div='#'+currentValue+'_chart_div_{{p}}';
-    var func=currentValue+'_drawChart{{p}}';
-    console.log(pc_div + " "+cc_div+" " + func);
+    var currentValue = $(sel).val();
+    var pc_div = '#' + previousValue + '_chart_div_{{p}}';
+    var cc_div = '#' + currentValue + '_chart_div_{{p}}';
+    var func = currentValue + '_drawChart{{p}}';
+    console.log(pc_div + " " + cc_div + " " + func);
 
     $(pc_div).css("display", "none");
     $(cc_div).css("display", "block");
     eval(func)();
-        
+
   }
-    
-);
-  
-{% endfor %}
-    </script>
+
+  );
+
+  {% endfor %}
+</script>
 
 {% endblock %}

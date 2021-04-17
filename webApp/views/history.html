@@ -177,7 +177,7 @@
                 <th>
                   Name
                 </th>
-                <th>
+                <th class="text-center">
                   Device Type
                 </th>
                 <th class="text-center">
@@ -195,18 +195,20 @@
                 <td>
                   {{data['name']}}
                 </td>
-                <td>
+                <td class="text-center">
                   {{data['deviceType']}}
                 </td>
                 <td>
-                  {% if(data['anaStatus'] == 1)%} <p style=color:red;> ABNORMAL</p>
-                  {% else %} <p style=color:green;> NORMAL</p>
+                  {% if(data['anaStatus'] == 1)%} <p style="color:red; text-align:center;"> ABNORMAL</p>
+                  {% else %} <p style="color:green; text-align:center;"> NORMAL</p>
                   {% endif %}
                 </td>
                 <td>
-                  <button class="btn  btn-primary btn-round btn-sm mr-auto" type="button"> Click here</button>
+                  <p style="text-align:center;">
+                    <a href="/history?i={{loop.index0}}">Click here</a>
+                  </p>
                 </td>
-              </tr>lsof -i tcp:3000
+              </tr>
               {% endfor %}
               <!-- <tr>
                 <td>

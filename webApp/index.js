@@ -64,7 +64,7 @@ app.use(function (req, res, next) {
     next();
 });
 let data = {};
-let devices = ['fan', 'slider', 'valve'];
+let devices = ['fan', 'slider', 'valve','pump'];
 app.route("/")
     .get(sessionChecker, (req, res, next) => {
 
@@ -173,8 +173,11 @@ app.post('/upload', function (req, res) {
     sampleFile = req.files.sampleFile;
     let fileName = uniqueFilename('/uploads', req.session.user['userName']);
     let ext = sampleFile.name.split('.');
+    
     let files = fileName.split('/');
-    files = fileName.split('\\');
+    if(files.length < 2){
+        files = fileName.split('\\');
+    }
     console.log(files + "sajbf  " + ext);
     fileName = files[2].toString() + "." + ext[1].toString();
     uploadPath = __dirname + '/uploads/' + fileName;

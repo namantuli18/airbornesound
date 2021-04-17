@@ -7,7 +7,7 @@ import json
 import numpy
 from collections import Counter
 arr=[]
-dire="valve"
+dire="pump"
 with open(os.path.join(dire,'label_distributions.pb'),"rb") as f:
     try:
         arr.append(pickle.load(f))

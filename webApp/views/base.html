@@ -20,9 +20,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="./login/img/favicon.png">
   <title>
-    Anomaly Detection
+    QUIRK
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -37,7 +37,7 @@
   <link href="/demo/demo.css" rel="stylesheet" />
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-
+  
 </head>
 
 <body class="">
@@ -55,7 +55,13 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">{{session.user['userName']}}</a>
+            <a class="navbar-brand text-center" href="javascript:void(0)" style="width:6em; top:0.25em;">
+              <img src="./login/img/Quirk-logos_white.png"></img>
+              <br>
+              <span class="card-category text-capitalise">{{session.user['userName']}}</span>
+            </a>
+            
+            
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
             aria-expanded="false" aria-label="Toggle navigation">
