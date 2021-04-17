@@ -65,6 +65,7 @@ app.use(function (req, res, next) {
 });
 let data = {};
 let devices = ['fan', 'slider rails', 'valve','pump'];
+let factories=['Factory A','Factory B','Factory C'];
 app.route("/")
     .get(sessionChecker, (req, res, next) => {
 
@@ -83,7 +84,7 @@ app.route("/")
                 data[devices[d]]['l_dist'] = await parse(fileContent4, { columns: false });
             }
             console.log(data)
-            res.render('index.html', { page: "dashboard", data, devices });
+            res.render('index.html', { page: "dashboard", data, devices ,factories});
         })();
 
     });
@@ -234,9 +235,36 @@ app.post('/upload', function (req, res) {
     });
 });
 setInterval(() => {
-    pusher.trigger("price-btcusd", "new-price", {
-        value: [(Math.random()), (Math.random()), (Math.random())]
-    });
+    const value=[(Math.random()), (Math.random()), (Math.random()), (Math.random())];
+    
+    const x=Math.floor(Math.random()*3);
+    const k="";
+    for( let i=0;i<devices.length;i++){
+        if(Math.round(value[i]-0.3))
+            k="ABNORMAL";
+        else{
+            k="NORMAL";
+            }
+    const query = History.create({
+        facName: factories[x] ,
+        id: uuid(),
+        deviceType: devices[i],
+        dtProb: parseFloat(Math.random()*0.5 +0.5),
+        anaStatus: k,
+        anaProb: value[i]
+
+    })
+        .catch(error => {
+            console.log('uh oh something wasnt right!');
+            console.log(error);
+            // Ooops, do some error-handling
+        });
+
+    } 
+        pusher.trigger(factories[x].replace(" ",""), "updates", {
+            value: value
+        });
+    
 }, 5000);
 
 app.listen(PORT, function () {
