@@ -18,7 +18,7 @@ foo@bar:~$ python3 library.py --type pump --audio "00000000.wav"
 Probability for the given pump sound being an anomaly is 1.0
 
 ```
-If we want to identify the device type too
+If the device type is unknown
 ```console
 foo@bar:~$ python3 library.py --audio "00000000.wav"
 Device type detected : pump
