@@ -48,9 +48,6 @@ const Users = sequelize.define('users', {
     }
 });
 
-
-
-
 const history = sequelize.define('history', {
     // Model attributes are defined here
     id: {
@@ -80,6 +77,7 @@ const history = sequelize.define('history', {
         allowNull: false
     }
 });
+
 const report = sequelize.define('report', {
     // Model attributes are defined here
     id: {
@@ -88,7 +86,7 @@ const report = sequelize.define('report', {
         allowNull: false,
         primaryKey: true
     },
-    name: {
+    facName: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -122,4 +120,5 @@ sequelize.sync()
 // export User model for use in other files.
 exports.Users = Users;
 exports.History = history;
+exports.report =report;
 

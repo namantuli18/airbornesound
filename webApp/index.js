@@ -9,7 +9,7 @@ const Pusher = require("pusher");
 const sequelize = require('sequelize');
 const cookieParser = require('cookie-parser');
 const { v4: uuid } = require('uuid');
-const { Users, History } = require('./databaseModels/db');
+const { Users, History ,report } = require('./databaseModels/db');
 const PORT = 8000;
 const uniqueFilename = require('unique-filename')
 var fs = require('fs').promises;
@@ -64,7 +64,7 @@ app.use(function (req, res, next) {
     next();
 });
 let data = {};
-let devices = ['fan', 'slider', 'valve','pump'];
+let devices = ['fan', 'slider rails', 'valve','pump'];
 app.route("/")
     .get(sessionChecker, (req, res, next) => {
 
@@ -121,7 +121,7 @@ app.route('/history')
 
 app.route('/report')
     .get(sessionChecker, (reqe, res) => {
-        res.render('report.html', { page: "report" });
+        res.render('report.html', { page: "report" ,devices});
     });
 
 app.route("/logout")

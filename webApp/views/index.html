@@ -107,7 +107,7 @@
           </div>
           <div class="col-sm-4"><select id="chart_select_4" class="selectpicker"
               data-style="btn select-with-transition " data-size="7">
-              {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
+              {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
 
             </select></div>
         </div>
@@ -130,7 +130,7 @@
           </div>
           <div class="col-sm-4"><select id="chart_select_2" class="selectpicker"
               data-style="btn select-with-transition " data-size="7">
-              {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
+              {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
 
             </select></div>
         </div>
@@ -152,7 +152,7 @@
           </div>
           <div class="col-sm-4"><select class="selectpicker" id="chart_select_3"
               data-style="btn select-with-transition " data-size="7">
-              {% for i in devices %}<option value="{{i}}">{{i | capitalize}}</option>{% endfor %}
+              {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
 
             </select></div>
         </div>
@@ -177,7 +177,7 @@
             </div>
           </div> -->
 </div>
-<div class="row">
+<!-- <div class="row">
   <div class="col-lg-6 col-md-12">
     <div class="card card-tasks">
       <div class="card-header ">
@@ -342,7 +342,8 @@
       </div>
     </div>
   </div>
-</div>{% endblock %}
+</div> -->
+{% endblock %}
 {%block scripts%}
 <script>
   Pusher.logToConsole = true;
