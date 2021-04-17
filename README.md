@@ -1,6 +1,15 @@
 # Anomaly Detection Using Airborne Sound 
 
 ## Using pre-existing library of Models
+The file library.py takes 2 arguments.
+The type argument is the device type from-
+* valve
+* pump
+* slider
+* fan
+
+
+Argument audio is a mandatory argument that contains the path of the audio file
 
 If we know the device type
 
