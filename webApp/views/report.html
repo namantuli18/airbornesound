@@ -6,8 +6,9 @@
             <div class="card-header">
                 <h5 class="title">Report</h5>
             </div>
+            <form  action="" enctype="multipart/form-data" method="post">
             <div class="card-body">
-                <form>
+                
                     <div class="row">
                         <!-- <div class="col-md-5 pr-md-1">
                 <div class="form-group">
@@ -20,18 +21,16 @@
                   
                                 <!-- <input type="text" class="form-control" placeholder="Username"
                                     value="{{session.user['userName']}}"> -->
-                                  <select class="selectpicker" data-style="btn select-with-transition float-right"
-                                    title="Factory" data-size="7">
-                                    <option>Factory A</option>
-                                    <option>Factory B</option>
-                                    <option>Factory C</option>
+                                    <select class="selectpicker" name="factory" data-style="btn select-with-transition float-right"
+                              title="Device Type" data-size="7">
+                                    {% for i in factories %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
                                   </select>
                             </div>
                         </div>
                         <div class="col-md-4 pr-md-1">
                             <div class="form-group">
                                 
-                              <select class="selectpicker" data-style="btn select-with-transition float-right"
+                              <select class="selectpicker" name="device" data-style="btn select-with-transition float-right"
                               title="Device Type" data-size="7">
                               {% for i in devices %}<option value="{{i}}">{{i | title}}</option>{% endfor %}
                             </select>
@@ -42,7 +41,7 @@
                         <div class="col-md-6 pr-md-1">
                             <div class="form-group">
                                 <label>From:</label>
-                                <input type="date" class="form-control">
+                                <input id="from"type="date" name="from" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -50,7 +49,7 @@
                       <div class="col-md-6 pr-md-1">
                           <div class="form-group">
                               <label>To:</label>
-                              <input type="date" class="form-control">
+                              <input type="date" name="to" class="form-control">
                           </div>
                       </div>
                   </div>
@@ -92,11 +91,12 @@
                 </div>
               </div>
             </div> -->
-                </form>
+                
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-fill btn-primary"><i class="tim-icons icon-cloud-download-93"></i>  Download report</button>
+                <button type="submit" class="btn btn-fill btn-primary generate-report-button"><i class="tim-icons icon-cloud-download-93"></i>  Download report</button>
             </div>
+            </form>
         </div>
     </div>
     <!-- <div class="col-md-4">
@@ -140,4 +140,46 @@
 </div>
 {%endblock %}
 {%block scripts%}
+<script>
+$(document).on('click', '.generate-report-button', function () {
+    form_submit();
+  });
+  function form_submit() {
+
+    var form = $('#report-form')[0];
+    var formdata = new FormData(form);
+    $('#report-form').css("display", "none");
+    $('.loader-div').css("display", "block");
+    // for (var pair of formdata.entries()) {
+    //     console.log(pair[0]+ ', ' + pair[1]);
+    // }
+    // $("#upload_audio_btn").prop("disabled", true);
+
+    $.ajax({
+      type: "POST",
+      enctype: 'multipart/form-data',
+      url: "./report",
+      data: formdata,
+      processData: false,
+      contentType: false,
+      cache: false,
+      timeout: 600000,
+      success: function (data) {
+        // $('.result-audio').html(data);
+        $('#report-form').css("display", "block");
+        $('.loader-div').css("display", "none");
+        // console.log(data);
+
+      },
+      error: function (e) {
+
+        console.log("ERROR : ", e);
+        // $("#upload_audio_btn").prop("disabled", false);
+        $('#report-form').css("display", "block");
+
+      }
+    });
+  };
+
+</script>
 {%endblock%}

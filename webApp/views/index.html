@@ -521,7 +521,7 @@
   {{i | replace(' ','')}}_dt3[i] = [parseFloat({{ data[i]['U_mfcc'][j][0] }}), {%if data[i]['vgg_y'][j] | int == 1 %} parseFloat({{ data[i]['U_mfcc'][j][1] }}), null {%else%} null, parseFloat({{ data[i]['U_mfcc'][j][1] }}) {% endif %}];
   i++;
   {% endfor %}
-  console.log({{i | replace(' ','')}}_dt3)
+  // console.log({{i | replace(' ','')}}_dt3)
 
   google.charts.setOnLoadCallback({{i | replace(' ','')}}_drawChart3);
 
@@ -605,7 +605,7 @@
     var pc_div = '#' + previousValue + '_chart_div_{{p}}';
     var cc_div = '#' + currentValue + '_chart_div_{{p}}';
     var func = currentValue + '_drawChart{{p}}';
-    console.log(pc_div + " " + cc_div + " " + func);
+    // console.log(pc_div + " " + cc_div + " " + func);
 
     $(pc_div).css("display", "none");
     $(cc_div).css("display", "block");

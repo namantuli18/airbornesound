@@ -13,13 +13,15 @@ const { Users, History ,report } = require('./databaseModels/db');
 const PORT = 8000;
 const uniqueFilename = require('unique-filename')
 var fs = require('fs').promises;
+var stringify = require('csv-stringify');
 var parse = require('csv-parse/lib/sync');
-
+const { Parser } = require('json2csv');
 app.use(express.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
 app.use(fileUpload());
-app.use(express.static(__dirname + '/assets'))
-app.use('/audio', express.static('uploads'))
+app.use(express.static(__dirname + '/assets'));
+app.use('/audio', express.static('uploads'));
+app.use('/reports', express.static('reports'));
 app.use(session({
     key: 'user_sid',
     secret: 'somerandonstuffs',
@@ -83,7 +85,7 @@ app.route("/")
                 const fileContent4 = await fs.readFile(__dirname + '/csv/' + devices[d] + '/l_dist.csv');
                 data[devices[d]]['l_dist'] = await parse(fileContent4, { columns: false });
             }
-            console.log(data)
+            // console.log(data)
             res.render('index.html', { page: "dashboard", data, devices ,factories});
         })();
 
@@ -110,7 +112,7 @@ app.route('/history')
                     i = 0;
                 }
                 req.session.hist = JSON.parse(JSON.stringify(hist));
-                console.log(req.session.hist);
+                // console.log(req.session.hist);
                 res.render('history.html', { page: "history", i });
             }
         }).catch(err => {
@@ -121,11 +123,37 @@ app.route('/history')
     });
 
 app.route('/report')
-    .get(sessionChecker, (reqe, res) => {
-        res.render('report.html', { page: "report" ,devices});
+    .get(sessionChecker, (req, res) => {
+        res.render('report.html', { page: "report" ,devices,factories});
     })
-    .post(sessionChecker, (reqe, res) => {
-        res.render('report.html', { page: "report" ,devices});
+    .post(sessionChecker, (req, res) => {
+        var factory = req.body.factory,
+            device = req.body.device;
+            var from = req.body.from+" 00:00:00",
+            to = req.body.to+" 00:00:00";
+            var query= report.findAll({ where: { [sequelize.Op.and]:{facName:factory, deviceType:device, createdAt:{[sequelize.Op.between]: [from,to] }  }} }).then(function (result) {
+                if (!result) {
+                    // res.redirect('/login');
+    
+                    // } else if (!user.validPassword(password)) {
+                    //     res.redirect('/login');
+                } else {
+                    
+                    var temp = JSON.parse(  JSON.stringify(result));
+                    // console.log(temp);
+                    // res.redirect('/');
+                    const json2csv = new Parser({ });
+                    temp = json2csv.parse(temp);
+                    res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+                    res.set('Content-Type', 'text/csv');
+                    res.status(200).send(temp);
+                    // res.render('report.html', { page: "report" ,devices,factories});
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        
+        
     });
 
 app.route("/logout")
@@ -154,7 +182,7 @@ app.route('/login')
                 //     res.redirect('/login');
             } else {
                 req.session.user = user.dataValues;
-                console.log(user.dataValues);
+                // console.log(user.dataValues);
                 res.redirect('/');
             }
         }).catch(err => {
@@ -182,7 +210,7 @@ app.post('/upload', function (req, res) {
     if(files.length < 2){
         files = fileName.split('\\');
     }
-    console.log(files + "sajbf  " + ext);
+    // console.log(files + "sajbf  " + ext);
     fileName = files[2].toString() + "." + ext[1].toString();
     uploadPath = __dirname + '/uploads/' + fileName;
 
@@ -206,7 +234,7 @@ app.post('/upload', function (req, res) {
             if (err) throw err;
             // result is an array consisting of messages collected 
             //during execution of script.
-            console.log('result: ', result.toString());
+            // console.log('result: ', result.toString());
             array = result.toString().split(',');
             array[0] = array[0].slice(2, -1)
             array[3] = array[3].slice(0, -1)
