@@ -122,6 +122,9 @@ app.route('/history')
 app.route('/report')
     .get(sessionChecker, (reqe, res) => {
         res.render('report.html', { page: "report" ,devices});
+    })
+    .post(sessionChecker, (reqe, res) => {
+        res.render('report.html', { page: "report" ,devices});
     });
 
 app.route("/logout")
