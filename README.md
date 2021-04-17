@@ -1,5 +1,32 @@
 # Anomaly Detection Using Airborne Sound 
 
+## Using pre-existing library of Models
+The file library.py takes 2 arguments.
+The type argument is the device type from-
+* valve
+* pump
+* slider
+* fan
+
+
+Argument audio is a mandatory argument that contains the path of the audio file
+
+If we know the device type
+
+```console
+foo@bar:~$ python3 library.py --type pump --audio "00000000.wav"
+Probability for the given pump sound being an anomaly is 1.0
+
+```
+If the device type is unknown
+```console
+foo@bar:~$ python3 library.py --audio "00000000.wav"
+Device type detected : pump
+Probability for the given pump sound being an anomaly is 1.0
+
+```
+
+
 ## Description <h2> 
   Acoustic condition monitoring via airborne sound analysis in conjunction with advanced signal processing and machine learning methods has proved to be a powerful tool 
   for early detection of machinery breakdown. It allows timely detection of anomalies, which results in more efficient and cost-effective maintenance. It also
