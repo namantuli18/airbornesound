@@ -1,15 +1,15 @@
 # Anomaly Detection Using Airborne Sound 
-
+- Instructions to reproduce the results are located at [instructions](https://github.com/namantuli18/airbornesound#custom-training)
+- To use our pretrained library of models, check [demo](https://github.com/namantuli18/airbornesound#using-pre-existing-library-of-models)
 ## Working Prototype
   A working prototype of the model architecture is available at http://138.91.121.137/
   
   The user credentials to access the portal are:
-    1. Username : Admin
-    2. Password : Ad_quirk@123
+   1. Username : Admin
+   2. Password : Ad_quirk@123
 
 
-- Instructions to reproduce the results are located at [instructions](https://github.com/namantuli18/airbornesound#custom-training)
-- To use our pretrained library of models, check [demo](https://github.com/namantuli18/airbornesound#using-pre-existing-library-of-models)
+
 
 ## Description  
   Acoustic condition monitoring via airborne sound analysis in conjunction with advanced signal processing and machine learning methods has proved to be a powerful tool 
