@@ -119,7 +119,7 @@ Model averaging is an approach to ensemble learning where each ensemble member c
 
 We can observe that the performance of weighted ensemble is always better than or similar to the solo models.
 
-## Haedware Integration
+## Hardware Integration
 * The entire modelling system is deployed on a Raspberry Pi based backbone device.
 * When connected with an external microphone through the USB slot, it behaves as a separate anomaly detection device.
 * When a prediction is made on the device, it automatically sends an API signal and the records in our database are immediately updated. 
