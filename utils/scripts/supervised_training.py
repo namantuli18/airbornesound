@@ -72,10 +72,12 @@ import tqdm
 feature = []
 label = []
 
-for files in os.listdir("../input/6-slider/slider"):
-    for individual_files in os.listdir(os.path.join("../input/6-slider/slider",files)):
-        for j in tqdm.tqdm(os.listdir(os.path.join("../input/6-slider/slider",files,individual_files))):
-            file_name=os.path.join("../input/6-slider/slider",files,individual_files,j)
+INPUT_PATH='../input/6-slider/slider'
+
+for files in os.listdir(""):
+    for individual_files in os.listdir(INPUT_PATH):
+        for j in tqdm.tqdm(os.listdir(os.path.join(INPUT_PATH,files,individual_files))):
+            file_name=os.path.join(INPUT_PATH,files,individual_files,j)
             X, sample_rate = librosa.load(file_name, res_type='kaiser_fast')
             mels = np.mean(librosa.feature.melspectrogram(y=X, sr=sample_rate).T,axis=0)
             feature.append(mels)
