@@ -5,7 +5,7 @@
   
   The user credentials to access the portal are:
   * Username : Admin
-  * Passowrd : Ad_quirk@123
+  * Password : Ad_quirk@123
 
 
 
