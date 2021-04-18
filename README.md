@@ -4,9 +4,8 @@
   A working prototype of the model architecture is available at http://138.91.121.137/
   
   The user credentials to access the portal are:
-  1. Username : Admin
-  2. Password : Ad_quirk@123
-
+    1. Username : Admin
+    2. Password : Ad_quirk@123
 
 
 - Instructions to reproduce the results are located at [instructions](https://github.com/namantuli18/airbornesound#custom-training)
