@@ -5,7 +5,7 @@
   for early detection of machinery breakdown. It allows timely detection of anomalies, which results in more efficient and cost-effective maintenance. It also
   provides a simple and effective method to retrofit to existing plants and environments where this could otherwise be costly.
   <p align="center">
-    <img src ="https://github.com/namantuli18/airbornesound/blob/master/Gallery/inputnew.png" width="500" height="350">
+    <img src ="https://github.com/namantuli18/airbornesound/blob/master/Gallery/inputnew.png" width="450" height="300">
   <p>
     
   We plan to implement a federated approach to build a robust algorithm that detects anomalous sounds using 
@@ -44,7 +44,7 @@
   
   Real time plotting of the individual device predictions helps presenting data that are too numerous or complicated to be described adequately and efficiently.
   
-   <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/upload_area.png" width="450" height="300">          <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/Final_analysis.png" width="450" height="300">
+   <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/upload_area.png" width="400" height="300">          <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/Final_analysis.png" width="400" height="300">
   
   The sample to be detected is uploaded as shown above. Final results show the predicted device and confidence in probability. There's also an option for the user to download the final predicted reports. Previous results are also displayed for future purposes.
 
@@ -118,7 +118,7 @@ We can observe that the performance of weighted ensemble is always better than o
 * Raspberry Pi when connected with an external microphone or a sound capturing device behaves as a standalone anomaly detection device.
 * We can replace the microphone with a microphone array and can significantly improve the performance of our pre-existing system.
 
-  <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_land.jfif" width="450" height="300">   <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_open.jfif" width="450" height="300">
+  <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_land.jfif" width="400" height="300">       <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_open.jfif" width="400" height="300">
 
 
 ## Using pre-existing library of Models
