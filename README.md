@@ -42,11 +42,12 @@
   
   ![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/dashboard.png)
   
-  Real time plotting of the individual device predictions  
-
-
+  Real time plotting of the individual device predictions helps presenting data that are too numerous or complicated to be described adequately and efficiently.
   
+   <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/upload_area.png" width="450" height="300">          <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/Final_analysis.png" width="450" height="300">
   
+  The sample to be detected is uploaded as shown above. Final results show the predicted device and confidence in probability. There's also an option for the user to download the final predicted reports. Previous results are also displayed for future purposes.
+
   ## Semi-Supervised Image Classification
   **Why is there a need for Semi-Supervised Learning?**
   * Lack of readily available real world or industrial data.
@@ -81,23 +82,44 @@
 *  We have ensured that the comparison of model performance and scoring is done on the same splits of data which is stratified on the basis of distribution of classes.
 
 ### t-SNE Dimensional Reduction of VGGish Embeddings <h3>
-![Semi-supervised VGGish Embeddings](https://github.com/namantuli18/airbornesound/blob/master/Gallery/SS_VGGish.png)
+<p align="center">
+    <img src ="https://github.com/namantuli18/airbornesound/blob/master/Gallery/SS_VGGish.png" width="600" height="400">
+  <p>
   
 ### t-SNE Dimensional Reduction of MFCC Embeddings <h3>
-![Semi-supervised MFCC Embeddings](https://github.com/namantuli18/airbornesound/blob/master/Gallery/SS_Mfccs.png)
+<p align="center">
+    <img src ="https://github.com/namantuli18/airbornesound/blob/master/Gallery/SS_Mfccs.png" width="600" height="400">
+  <p>
   
  As we increase the label distribution, the value of accuracy increases. As the label distribution reaches 1, the accuracy of semi-supervised methods approaches the accuracy of traditional supervised methods. Hence average test accuracy against the proportion of labeled data would look like
  
- ![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/cum_test_accuracy.png)
+ <p align="center">
+    <img src ="https://github.com/namantuli18/airbornesound/blob/master/Gallery/cum_test_accuracy.png" width="500" height="350">
+  <p>
  
 ## Comparison of Model Performance
-![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/Solo_models.png)
+<p align="center">
+    <img src ="https://github.com/namantuli18/airbornesound/blob/master/Gallery/Solo_models.png" >
+  <p>
 
 Model averaging is an approach to ensemble learning where each ensemble member contributes an equal amount to the final prediction. A weighted ensemble is an extension of a model averaging ensemble where the contribution of each member to the final prediction is weighted by the performance of the model.
 
-![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/Solo%20vs%20Ensemble.png)
+<p align="center">
+    <img src ="https://github.com/namantuli18/airbornesound/blob/master/Gallery/Solo%20vs%20Ensemble.png" >
+  <p>
 
 We can observe that the performance of weighted ensemble is always better than or similar to the solo models.
+
+## Haedware Integration
+* The entire modelling system is deployed on a Raspberry Pi based backbone device.
+* When connected with an external microphone through the USB slot, it behaves as a separate anomaly detection device.
+* When a prediction is made on the device, it automatically sends an API signal and the records in our database are immediately updated. 
+* The performance of the entire system can be fine tuned with the use of an array of microphones for better results.
+* Raspberry Pi when connected with an external microphone or a sound capturing device behaves as a standalone anomaly detection device.
+* We can replace the microphone with a microphone array and can significantly improve the performance of our pre-existing system.
+
+  <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_land.jfif" width="450" height="300">   <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_open.jfif" width="450" height="300">
+
 
 ## Using pre-existing library of Models
 The file library.py takes 2 arguments.
@@ -107,7 +129,10 @@ The type argument is the device type from-
 * slider
 * fan
 
-Argument audio is a mandatory argument that contains the path of the audio file
+Argument audio is a mandatory argument that contains the path of the audio file. We have added another feature integration in which we just have a .wav file and don’t know the instrument which produced the sound.
+The script when called first loads the model and recognizes the device type. 
+After this, it uses the device’s model for anomaly detection.
+
 
 If we know the device type
 
