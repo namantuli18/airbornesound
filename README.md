@@ -7,25 +7,7 @@
   * Username : Admin
   * Password : Ad_quirk@123
 
-The training scripts are located at [scripts](https://github.com/namantuli18/airbornesound/tree/master/utils/scripts)
 
-To custom train the model on your dataset, add the path in the INPUT_PATH variable and append the individual labels to the labels in file [supervised training](https://github.com/namantuli18/airbornesound/blob/master/utils/scripts/supervised_training.py)
-
-
-
-```python
-INPUT_PATH='ENTER PATH HERE'
-
-for files in os.listdir(""):
-    for individual_files in os.listdir(INPUT_PATH):
-        for j in tqdm.tqdm(os.listdir(os.path.join(INPUT_PATH,files,individual_files))):
-            file_name=os.path.join(INPUT_PATH,files,individual_files,j)
-            X, sample_rate = librosa.load(file_name, res_type='kaiser_fast')
-            mels = np.mean(librosa.feature.melspectrogram(y=X, sr=sample_rate).T,axis=0)
-            feature.append(mels)
-            label.append(individual_files)
-
-```
 
 ## Description  
   Acoustic condition monitoring via airborne sound analysis in conjunction with advanced signal processing and machine learning methods has proved to be a powerful tool 
@@ -146,6 +128,30 @@ We can observe that the performance of weighted ensemble is always better than o
 * We can replace the microphone with a microphone array and can significantly improve the performance of our pre-existing system.
 
   <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_land.jfif" width="400" height="300">       <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_open.jfif" width="400" height="300">
+
+
+
+The training scripts are located at [scripts](https://github.com/namantuli18/airbornesound/tree/master/utils/scripts)
+
+
+
+## Custom Training
+
+To fine tune the architecture on a custom dataset,  add the path in the INPUT_PATH variable and append the individual labels to the labels in file [supervised training](https://github.com/namantuli18/airbornesound/blob/master/utils/scripts/supervised_training.py)
+
+```python
+INPUT_PATH='ENTER PATH HERE'
+
+for files in os.listdir(""):
+    for individual_files in os.listdir(INPUT_PATH):
+        for j in tqdm.tqdm(os.listdir(os.path.join(INPUT_PATH,files,individual_files))):
+            file_name=os.path.join(INPUT_PATH,files,individual_files,j)
+            X, sample_rate = librosa.load(file_name, res_type='kaiser_fast')
+            mels = np.mean(librosa.feature.melspectrogram(y=X, sr=sample_rate).T,axis=0)
+            feature.append(mels)
+            label.append(individual_files)
+
+```
 
 
 ## Using pre-existing library of Models
