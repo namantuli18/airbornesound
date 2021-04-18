@@ -7,6 +7,7 @@
   * Username : Admin
   * Password : Ad_quirk@123
 
+The training scripts are located at [scripts](https://github.com/namantuli18/airbornesound/tree/master/utils/scripts)
 
 
 ## Description  
@@ -129,9 +130,6 @@ We can observe that the performance of weighted ensemble is always better than o
 
   <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_land.jfif" width="400" height="300">       <img src="https://github.com/namantuli18/airbornesound/blob/master/Gallery/ras_open.jfif" width="400" height="300">
 
-
-
-The training scripts are located at [scripts](https://github.com/namantuli18/airbornesound/tree/master/utils/scripts)
 
 
 
