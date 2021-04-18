@@ -1,8 +1,9 @@
 # Anomaly Detection Using Airborne Sound 
 - Instructions to reproduce the results are located at [instructions](https://github.com/namantuli18/airbornesound#custom-training)
 - To use our pretrained library of models, check [demo](https://github.com/namantuli18/airbornesound#using-pre-existing-library-of-models)
+- The dataset used has been fetched from [MMII Dataset](https://zenodo.org/record/3384388#.YD52cVkzbCJ)
 ## Working Prototype
-  A working prototype of the model architecture is available at http://138.91.121.137/
+  A working prototype of the model architecture is available at [prototype](http://138.91.121.137/)
   
   The user credentials to access the portal are:
    1. Username : Admin
