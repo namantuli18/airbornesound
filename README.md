@@ -7,7 +7,7 @@
   * Username : Admin
   * Password : Ad_quirk@123
 
-The training scripts are located at [scripts](https://github.com/namantuli18/airbornesound/tree/master/utils/scripts)
+Instructions to reproduce the results are located at [scripts](https://github.com/namantuli18/airbornesound/tree/master/utils/scripts)
 
 
 ## Description  
