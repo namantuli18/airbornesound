@@ -9,7 +9,20 @@
 
 The training scripts are located at [scripts](https://github.com/namantuli18/airbornesound/tree/master/utils/scripts)
 
+To custom train the model on your dataset, add the path in the INPUT_PATH variable and append the individual labels to the list labels 
+```python
+INPUT_PATH='ENTER PATH HERE'
 
+for files in os.listdir(""):
+    for individual_files in os.listdir(INPUT_PATH):
+        for j in tqdm.tqdm(os.listdir(os.path.join(INPUT_PATH,files,individual_files))):
+            file_name=os.path.join(INPUT_PATH,files,individual_files,j)
+            X, sample_rate = librosa.load(file_name, res_type='kaiser_fast')
+            mels = np.mean(librosa.feature.melspectrogram(y=X, sr=sample_rate).T,axis=0)
+            feature.append(mels)
+            label.append(individual_files)
+
+```
 
 ## Description  
   Acoustic condition monitoring via airborne sound analysis in conjunction with advanced signal processing and machine learning methods has proved to be a powerful tool 
