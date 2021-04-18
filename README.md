@@ -9,7 +9,10 @@
 
 The training scripts are located at [scripts](https://github.com/namantuli18/airbornesound/tree/master/utils/scripts)
 
-To custom train the model on your dataset, add the path in the INPUT_PATH variable and append the individual labels to the list labels 
+To custom train the model on your dataset, add the path in the INPUT_PATH variable and append the individual labels to the labels in file [scripts](https://github.com/namantuli18/airbornesound/blob/master/utils/scripts/supervised_training.py)
+
+
+
 ```python
 INPUT_PATH='ENTER PATH HERE'
 
