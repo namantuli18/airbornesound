@@ -2,9 +2,10 @@
 
 ## Working Prototype
   A working prototype of the model architecture is available at http://138.91.121.137/
+  
   The user credentials to access the portal are:
-  Username : Admin
-  Passowrd : Ad_quirk@123
+  * Username : Admin
+  * Passowrd : Ad_quirk@123
 
 
 
