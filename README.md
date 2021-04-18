@@ -169,12 +169,30 @@ After this, it uses the device’s model for anomaly detection.
 If we know the device type
 
 ```console
+foo@bar:~$ git clone https://github.com/namantuli18/airbornesound
+Cloning into 'airbornesound'...
+remote: Enumerating objects: 2787, done.
+remote: Counting objects: 100% (711/711), done.
+remote: Compressing objects: 100% (447/447), done.
+remote: Total 2787 (delta 395), reused 544 (delta 255), pack-reused 2076
+Receiving objects: 100% (2787/2787), 200.13 MiB | 2.95 MiB/s, done.
+Resolving deltas: 100% (652/652), done.
+Updating files: 100% (2096/2096), done.
 foo@bar:~$ python3 library.py --type pump --audio "00000000.wav"
 Probability for the given pump sound being an anomaly is 1.0
 
 ```
 If the device type is unknown
 ```console
+foo@bar:~$ git clone https://github.com/namantuli18/airbornesound
+Cloning into 'airbornesound'...
+remote: Enumerating objects: 2787, done.
+remote: Counting objects: 100% (711/711), done.
+remote: Compressing objects: 100% (447/447), done.
+remote: Total 2787 (delta 395), reused 544 (delta 255), pack-reused 2076
+Receiving objects: 100% (2787/2787), 200.13 MiB | 2.95 MiB/s, done.
+Resolving deltas: 100% (652/652), done.
+Updating files: 100% (2096/2096), done.
 foo@bar:~$ python3 library.py --audio "00000000.wav"
 Device type detected : pump
 Probability for the given pump sound being an anomaly is 1.0
