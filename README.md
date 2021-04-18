@@ -9,8 +9,8 @@
 
 
 
-* Instructions to reproduce the results are located at [instructions](https://github.com/namantuli18/airbornesound#custom-training)
-* To use our pretrained library of models, check [demo](https://github.com/namantuli18/airbornesound#using-pre-existing-library-of-models)
+- Instructions to reproduce the results are located at [instructions](https://github.com/namantuli18/airbornesound#custom-training)
+- To use our pretrained library of models, check [demo](https://github.com/namantuli18/airbornesound#using-pre-existing-library-of-models)
 
 ## Description  
   Acoustic condition monitoring via airborne sound analysis in conjunction with advanced signal processing and machine learning methods has proved to be a powerful tool 
