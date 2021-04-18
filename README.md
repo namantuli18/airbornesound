@@ -1,39 +1,15 @@
 # Anomaly Detection Using Airborne Sound 
 
-## Using pre-existing library of Models
-The file library.py takes 2 arguments.
-The type argument is the device type from-
-* valve
-* pump
-* slider
-* fan
-
-
-Argument audio is a mandatory argument that contains the path of the audio file
-
-If we know the device type
-
-```console
-foo@bar:~$ python3 library.py --type pump --audio "00000000.wav"
-Probability for the given pump sound being an anomaly is 1.0
-
-```
-If the device type is unknown
-```console
-foo@bar:~$ python3 library.py --audio "00000000.wav"
-Device type detected : pump
-Probability for the given pump sound being an anomaly is 1.0
-
-```
-
-
-## Description <h2> 
+## Description  
   Acoustic condition monitoring via airborne sound analysis in conjunction with advanced signal processing and machine learning methods has proved to be a powerful tool 
   for early detection of machinery breakdown. It allows timely detection of anomalies, which results in more efficient and cost-effective maintenance. It also
   provides a simple and effective method to retrofit to existing plants and environments where this could otherwise be costly.
+  
+  ![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/inputnew.png)
+  
   We plan to implement a federated approach to build a robust algorithm that detects anomalous sounds using 
   Airborne Sound Analysis and incorporates ensembling based techniques to further improve upon the performance & efficiency of a solo model and ensures better scalability.
-  <h2>
+  
     
  ## Problems Faced <h2> 
    * Maintenance in various industries consuming unnecessary resources, increase operational costs and cripple daily operations. 
@@ -60,11 +36,15 @@ Probability for the given pump sound being an anomaly is 1.0
    
   **Note:** The same procedure is followed to build an anomaly detection for each instrument belonging to each volume level.
 
-  ## Features <h2>
+  ## Features provided by **QUIRK** <h2>
+  The Login Page not only provides site access for the user, but also allows the website to track user actions and behavior. 
   
-  ## Comparison of Model Performance
-  We can observe that the performance of weighted ensemble is always better than or similar to the solo models.
-  ![]()
+  ![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/dashboard.png)
+  
+  Real time plotting of the individual device predictions  
+
+
+  
   
   ## Semi-Supervised Image Classification
   **Why is there a need for Semi-Supervised Learning?**
@@ -98,6 +78,50 @@ Probability for the given pump sound being an anomaly is 1.0
 *  The processed dataset (with audio embeddings) will be trained using a Random Forest classifier using EM.
 *  Results will be compared based on performances from two feature extractors. We then investigate the likelihood of unlabeled audio data being accurately concluded from partially labeled audio inputs.
 *  We have ensured that the comparison of model performance and scoring is done on the same splits of data which is stratified on the basis of distribution of classes.
+
+### t-SNE Dimensional Reduction of VGGish Embeddings <h3>
+![Semi-supervised VGGish Embeddings](https://github.com/namantuli18/airbornesound/blob/master/Gallery/SS_VGGish.png)
+  
+### t-SNE Dimensional Reduction of MFCC Embeddings <h3>
+![Semi-supervised MFCC Embeddings](https://github.com/namantuli18/airbornesound/blob/master/Gallery/SS_Mfccs.png)
+  
+ As we increase the label distribution, the value of accuracy increases. As the label distribution reaches 1, the accuracy of semi-supervised methods approaches the accuracy of traditional supervised methods. Hence average test accuracy against the proportion of labeled data would look like
+ 
+ ![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/cum_test_accuracy.png)
+ 
+## Comparison of Model Performance
+![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/Solo_models.png)
+
+Model averaging is an approach to ensemble learning where each ensemble member contributes an equal amount to the final prediction. A weighted ensemble is an extension of a model averaging ensemble where the contribution of each member to the final prediction is weighted by the performance of the model.
+
+![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/Solo%20vs%20Ensemble.png)
+
+We can observe that the performance of weighted ensemble is always better than or similar to the solo models.
+
+## Using pre-existing library of Models
+The file library.py takes 2 arguments.
+The type argument is the device type from-
+* valve
+* pump
+* slider
+* fan
+
+Argument audio is a mandatory argument that contains the path of the audio file
+
+If we know the device type
+
+```console
+foo@bar:~$ python3 library.py --type pump --audio "00000000.wav"
+Probability for the given pump sound being an anomaly is 1.0
+
+```
+If the device type is unknown
+```console
+foo@bar:~$ python3 library.py --audio "00000000.wav"
+Device type detected : pump
+Probability for the given pump sound being an anomaly is 1.0
+
+```
 
 
 
