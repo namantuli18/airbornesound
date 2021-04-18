@@ -4,9 +4,10 @@
   Acoustic condition monitoring via airborne sound analysis in conjunction with advanced signal processing and machine learning methods has proved to be a powerful tool 
   for early detection of machinery breakdown. It allows timely detection of anomalies, which results in more efficient and cost-effective maintenance. It also
   provides a simple and effective method to retrofit to existing plants and environments where this could otherwise be costly.
-  
-  ![](https://github.com/namantuli18/airbornesound/blob/master/Gallery/inputnew.png)
-  
+  <p align="center">
+    <img src ="https://github.com/namantuli18/airbornesound/blob/master/Gallery/inputnew.png" width="500" height="350">
+  <p>
+    
   We plan to implement a federated approach to build a robust algorithm that detects anomalous sounds using 
   Airborne Sound Analysis and incorporates ensembling based techniques to further improve upon the performance & efficiency of a solo model and ensures better scalability.
   
